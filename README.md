@@ -66,7 +66,7 @@ node main.js
 
   **Run** the application:
   ```bash
-  pm2 start index.js
+  pm2 start main.js
   ```
   ---
 </details>
@@ -81,8 +81,7 @@ For my personal use I use my private home phone number with a WhatsApp account.
 - **classID** this is the classID of WebUntis
 - **whatsapp_groupID** is the groupID of WhatsApp
 
-With [getGroupIDs.js](./getGroupIDs.js) you can get all groups with IDs the WhatsApp account is connected to.
-
+---
 ```js
 {
   "classes": [
@@ -94,6 +93,12 @@ With [getGroupIDs.js](./getGroupIDs.js) you can get all groups with IDs the What
   ]
 }
 ```
+> [!TIP]
+> Using [getGroupIDs.js](./getGroupIDs.js) you can get the IDs of all groups that a whatsapp account is connected to.
+>
+> ```
+> node getGroupIDs.js
+> ```
 ___
 
 ### Environment .env
@@ -118,3 +123,7 @@ whatsapp_admins=['491234567890@c.us']
 
 APIPORT="5006"
 ```
+
+## Credits
+Big thanks to the collaborators of [webuntis](https://github.com/SchoolUtils/WebUntis) and [whatsapp-web.js](https://github.com/pedroslopez/whatsapp-web.js) for the work on those libraries!
+
