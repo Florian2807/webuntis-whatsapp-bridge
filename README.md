@@ -11,7 +11,7 @@ The repository is still under development and might contain some bugs. Please re
 ### Timetable Live-Updates
 If there is a new substitute lesson or a class is cancelled, you will receive a message via WhatsApp.
 
-![Example Message Live-Update](https://github.com/Florian2807/webuntis-whatsapp-bridge/assets/84639717/33c827ce-660c-463c-9d43-20aeedd55363)
+![Example Message Live-Update](https://github.com/Florian2807/webuntis-whatsapp-bridge/assets/84639717/479fc687-0015-45c5-98cf-6f051e028dcd)
 
 
 ### ChatBot with Untis-Data
@@ -100,8 +100,7 @@ ___
 - **NODE_ENV** should be on production 
 - **untis_school**
 
-![Construction WebUntis-URL](https://github.com/Florian2807/webuntis-whatsapp-bridge/assets/84639717/6b77aa3f-f1d1-4ed1-b1f0-bc44d3be72ab)
-
+![Construction WebUntis-URL](https://github.com/Florian2807/webuntis-whatsapp-bridge/assets/84639717/90bab4e2-7804-4666-995a-0b85fae705cd)
 
 - **untis_teacher_access** there are some commands that only works with a teacher account. If you have access to a teacher account set this to **true**
 - **whatsapp_admins** every user that is permitted to use admin only commands like *!eval*
