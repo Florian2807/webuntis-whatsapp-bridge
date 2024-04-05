@@ -4,8 +4,8 @@ module.exports = () => {
     commands()
     utils()
     cronjobs()
-    wb.changedLessons = JSON.parse(fs.readFileSync('./data/changedLessons.json', 'utf8')) || {}
     wb.Utils.createNecessaryFiles()
+    wb.changedLessons = JSON.parse(fs.readFileSync('./data/changedLessons.json', 'utf8')) || {}
 }
 
 function commands() {
