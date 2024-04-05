@@ -102,21 +102,23 @@ For my personal use I use my private home phone number with a WhatsApp account.
 ___
 
 ### Environment .env
-- **NODE_ENV** should be on production 
-- **untis_school**
+- **NODE_ENV** should be on production
+  
+- **untis_baseurl**, **untis_school**, **untis_username**, **untis_password**
+- **untis_teacher_access** there are some commands that only works with a teacher account. If you have access to a teacher account set this to **true**
+  
+- **whatsapp_admins** every user that is permitted to use admin only commands like *!eval*
+- **APIPORT** API Port of the API :D
 
 ![Construction WebUntis-URL](https://github.com/Florian2807/webuntis-whatsapp-bridge/assets/84639717/90bab4e2-7804-4666-995a-0b85fae705cd)
 
-- **untis_teacher_access** there are some commands that only works with a teacher account. If you have access to a teacher account set this to **true**
-- **whatsapp_admins** every user that is permitted to use admin only commands like *!eval*
-- **APIPORT** API Port of the API :D 
 ```
 NODE_ENV=production
 
+untis_baseurl="test123.webuntis.com"
 untis_school="school_name here"
 untis_username="user_login here"
 untis_password="your password here"
-untis_baseurl="test123.webuntis.com"
 untis_teacher_access=false
 
 whatsapp_admins=['491234567890@c.us']
