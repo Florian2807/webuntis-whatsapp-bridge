@@ -1,0 +1,9 @@
+/node_modules
+/token
+/.wwebjs_cache
+package-lock.json
+
+data/changedLessons.json
+
+config.json
+.env
