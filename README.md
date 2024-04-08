@@ -11,7 +11,7 @@ The repository is still under development and might contain some bugs. Please re
 ### Timetable Live-Updates
 If there is a new substitute lesson or a class is cancelled, you will receive a message via WhatsApp.
 
-![Example Message Live-Update](https://github.com/Florian2807/webuntis-whatsapp-bridge/assets/84639717/479fc687-0015-45c5-98cf-6f051e028dcd)
+![Example Message Live-Update](https://i.2807.eu/1UzNh.png)
 
 
 ### ChatBot with Untis-Data
@@ -110,7 +110,7 @@ ___
 - **whatsapp_admins** every user that is permitted to use admin only commands like *!eval*
 - **APIPORT** API Port of the API :D
 
-![Construction WebUntis-URL](https://github.com/Florian2807/webuntis-whatsapp-bridge/assets/84639717/90bab4e2-7804-4666-995a-0b85fae705cd)
+![Construction WebUntis-URL](https://i.2807.eu/jqlb8.png)
 
 ```
 NODE_ENV=production
