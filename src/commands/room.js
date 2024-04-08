@@ -24,7 +24,7 @@ module.exports = {
             }, throwHttpErrors: false
         }).json()
 
-        const requestedLesson = wb.Utils.getDefinitions(args, 'stunde', true)
+        const requestedLesson = wb.Utils.getParameters(args, 'stunde', true)
 
         const currentLesson = wb.Utils.getCurrentLesson(requestedLesson)
         if (!currentLesson) return `Aktuell ist doch gar kein Unterricht!\n\nDu kannst auch andere Stunden abfragen. Beispiel: \n\`${defaultArgs[0]} ${defaultArgs[1]} stunde:1\``

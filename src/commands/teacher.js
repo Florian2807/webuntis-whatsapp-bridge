@@ -15,7 +15,7 @@ module.exports = {
         if (!foundTeachers.length) return 'Keinen Lehrer gefunden! Bist du sicher, dass du den Namen richtig geschrieben hast?'
         const todaysDate = new Date().toISOString().split('T')[0]
 
-        const requestedLesson = wb.Utils.getDefinitions(args, 'stunde', true)
+        const requestedLesson = wb.Utils.getParameters(args, 'stunde', true)
         if (requestedLesson &&
             (typeof requestedLesson !== 'number' ||
                 requestedLesson > 9 ||
