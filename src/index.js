@@ -10,7 +10,13 @@ module.exports = () => {
 
 function commands() {
     wb.Commands = new Map()
-    const files = fs.readdirSync(`./src/commands`)
+    const files = fs.readdirSync(`./src/commands`).filter(i => i.includes('.js'))
+    if (fs.existsSync('./src/commands/customCommands')) {
+        for (const file of fs.readdirSync('./src/commands/customCommands')) {
+            files.push('customCommands/' + file)
+        }
+    }
+
     for (const file of files) {
         const command = require(`${__dirname}/commands/${file}`)
         wb.Commands.set(command.commandName, command)
