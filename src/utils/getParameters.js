@@ -3,10 +3,10 @@ module.exports = (args, definition, parseRes) => {
         return i.startsWith(`${definition}:`)
     })
 
-    if (foundArgument) {
-        let parameter = foundArgument?.replace(`${definition}:`, '')
-        args.splice(args.indexOf(foundArgument), 1)
-    }
+        
+    let parameter = foundArgument?.replace(`${definition}:`, '') 
+    args.splice(args.indexOf(foundArgument), 1)
+    
     if (parseRes) {
         try {
             parameter = JSON.parse(parameter)
