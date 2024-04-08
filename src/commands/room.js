@@ -38,7 +38,7 @@ module.exports = {
         return `Unterricht in Raum *${roomName}* in der ${currentLesson.lesson}. Stunde:` +
             `\n- ${parsedLesson?.subject?.map(i => i.longName)?.join(', ') ?? 'Fach nicht bekannt'}` +
             `\n- ${parsedLesson?.teacher?.map(i => i.name).join(', ')} ` +
-            `${wb.Utils.translateCellState(parsedLesson.cellState, parsedLesson?.teacher?.filter(t => t)) !== 'Normal' ? `\n- *${wb.Utils.translateCellState(parsedLesson.cellState, parsedLesson?.teacher?.filter(t => t))}*` : ''}` +
+            `${wb.Utils.translateCellstate(parsedLesson.cellState, parsedLesson?.teacher?.filter(t => t)) !== 'Normal' ? `\n- *${wb.Utils.translateCellstate(parsedLesson.cellState, parsedLesson?.teacher?.filter(t => t))}*` : ''}` +
             `${parsedLesson?.cellState === "ADDITIONAL" ? "\n- " + parsedLesson.lessonText : ""}` + 
             (requestedLesson ? "" : `\n\nDu kannst auch andere Stunden abfragen. Beispiel: \n\`${defaultArgs[0]} ${defaultArgs[1]} stunde:1\``)
     },
