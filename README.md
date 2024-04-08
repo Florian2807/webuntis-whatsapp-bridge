@@ -11,7 +11,7 @@ The repository is still under development and might contain some bugs. Please re
 ### Timetable Live-Updates
 If there is a new substitute lesson or a class is cancelled, you will receive a message via WhatsApp.
 
-![Example Message Live-Update](https://i.2807.eu/1UzNh.png)
+![Example Message Live-Update](https://i.2807.eu/CLSWn.png)
 
 
 ### ChatBot with Untis-Data
