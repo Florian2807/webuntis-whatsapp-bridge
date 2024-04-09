@@ -2,6 +2,7 @@
   "dependencies": {
     "body-parser": "^1.20.2",
     "capture-website": "^4.1.0",
+    "cheerio": "^1.0.0-rc.12",
     "dotenv": "^16.4.1",
     "express": "^4.18.2",
     "fs": "^0.0.1-security",
@@ -10,6 +11,6 @@
     "node-schedule": "^2.1.1",
     "qrcode-terminal": "^0.12.0",
     "webuntis": "^2.0.3",
-    "whatsapp-web.js": "^1.23.0"
+    "whatsapp-web.js": "github:pedroslopez/whatsapp-web.js#webpack-exodus"
   }
 }
