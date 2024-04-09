@@ -5,7 +5,7 @@ package-lock.json
 
 data/changedLessons.json
 
-src/commands/customCommands/*
+src/commands/*/*
 
 config.json
 .env
