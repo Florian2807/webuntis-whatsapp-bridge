@@ -114,6 +114,7 @@ ___
 
 ```
 NODE_ENV=production
+chrome_path="path to chrome (remove line if not necessary)" 
 
 untis_baseurl="test123.webuntis.com"
 untis_school="school_name here"
