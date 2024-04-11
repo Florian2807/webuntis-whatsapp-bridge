@@ -7,7 +7,6 @@ module.exports = {
 
     callback: async ({msg}) => {
         if(msg.body?.toLowerCase().includes("danke")) {
-            console.log('asd')
             await msg.reply("🤖📣 Gerne Gerne")
         }
     }
