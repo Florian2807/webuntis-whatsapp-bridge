@@ -6,6 +6,7 @@ package-lock.json
 data/changedLessons.json
 
 src/commands/*/*
+src/modules/*/*
 
 config.json
 .env

@@ -2,6 +2,7 @@ const fs = require('fs')
 
 module.exports = () => {
     commands()
+    modules()
     utils()
     cronjobs()
     wb.Utils.createNecessaryFiles()
@@ -15,6 +16,16 @@ function commands() {
     for (const file of files) {
         const command = require(`${__dirname}/commands/${file}`)
         wb.Commands.set(command.commandName, command)
+    }
+}
+
+function modules() {
+    wb.Modules = new Map()
+    const files = fs.readFileSync('./src/modules', { recursive: true}).filter(i => i.includes('.js'))
+    
+    for (const file of files) {
+        const module = require(`${__dirname}/commands/${file}`)
+        wb.Commands.set(module.moduleName, module)
     }
 }
 
