@@ -16,7 +16,12 @@ client.on('qr', (qr) => {
 
 client.on('message', async (msg) => {
     if (process.env.NODE_ENV === "development" && !process.env.whatsapp_admins.includes(msg.from)) return
+    handleCommand(msg)
+    handleModule(msg)
+    
+})
 
+async function handleCommand(msg) {
     const message = msg.body?.toLowerCase().split(' ')[0]
 
     if(msg.body?.toLowerCase().includes("danke") && !message.startsWith('!') && !msg.id.remote.includes("@g.us")) {
@@ -46,6 +51,24 @@ client.on('message', async (msg) => {
     } catch (e) {
         console.error(e)
     }
-})
+}
+
+async function handleModule(msg) {
+    const message = msg.body?.toLowerCase().split(' ')[0]
+    
+    Array.from(fb.modules.values()).some((module) => {
+        const check = {
+            user:
+                module.user.includes(msg.from) || !module.user.length,
+            inGroups: module.inGroups && !msg.id.remote.includes("@g.us"),
+            excludedUser: !module.excludedUser.includes(msg.from),
+        }
+        console.log(check)
+        if (Object.values(check).every((i) => i)) {
+            moduleFound(msg, module)
+        }
+    })
+    return await module.callback(msg, args)
+}
 
 module.exports = client
