@@ -24,14 +24,11 @@ client.on('message', async (msg) => {
 async function handleCommand(msg) {
     const message = msg.body?.toLowerCase().split(' ')[0]
 
-    if(msg.body?.toLowerCase().includes("danke") && !message.startsWith('!') && !msg.id.remote.includes("@g.us")) {
-        await msg.reply("🤖📣 Gerne Gerne")
-    } 
-
     if (!message.startsWith('!')) return
 
     let command
     Array.from(wb.Commands.values()).some((cmd) => {
+        console.log(cmd)
         const triggers = cmd['triggers']
         if (triggers.includes(message.replace("!", ""))) {
             command = cmd
@@ -54,21 +51,20 @@ async function handleCommand(msg) {
 }
 
 async function handleModule(msg) {
-    const message = msg.body?.toLowerCase().split(' ')[0]
-    
-    Array.from(fb.modules.values()).some((module) => {
+    const args = msg.body?.toLowerCase().split(' ');
+    const defaultArgs = msg.body?.split(' ')
+
+    Array.from(wb.Modules.values()).some((module) => {
         const check = {
-            user:
-                module.user.includes(msg.from) || !module.user.length,
-            inGroups: module.inGroups && !msg.id.remote.includes("@g.us"),
+            user: module.user.includes(msg.from) || !module.user.length,
+            inGroups: !module.inGroups && !msg.id.remote.includes("@g.us"),
             excludedUser: !module.excludedUser.includes(msg.from),
         }
         console.log(check)
         if (Object.values(check).every((i) => i)) {
-            moduleFound(msg, module)
+            return module.callback({msg, args, defaultArgs})
         }
     })
-    return await module.callback(msg, args)
 }
 
 module.exports = client

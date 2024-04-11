@@ -19,13 +19,13 @@ function commands() {
     }
 }
 
-function modules() {
+function modules() {
     wb.Modules = new Map()
-    const files = fs.readFileSync('./src/modules', { recursive: true}).filter(i => i.includes('.js'))
+    const files = fs.readdirSync('./src/modules', { recursive: true }).filter(i => i.includes('.js'))
     
     for (const file of files) {
-        const module = require(`${__dirname}/commands/${file}`)
-        wb.Commands.set(module.moduleName, module)
+        const module = require(`${__dirname}/modules/${file}`)
+        wb.Modules.set(module.moduleName, module)
     }
 }
 
