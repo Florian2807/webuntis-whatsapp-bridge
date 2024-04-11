@@ -3,7 +3,7 @@
 /.wwebjs_cache
 package-lock.json
 
-data/changedLessons.json
+data/*
 
 src/commands/*/*
 src/modules/*/*

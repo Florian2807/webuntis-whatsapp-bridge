@@ -1,14 +1,15 @@
 const qrcode = require('qrcode-terminal');
 const {Client, LocalAuth} = require('whatsapp-web.js');
 
-const clientConfig = process.env.NODE_ENV === "production" ? {
-    authStrategy: new LocalAuth({dataPath: 'token'}),
-    puppeteer: {product: "chrome", executablePath: "/usr/bin/chromium-browser"}
-} : {authStrategy: new LocalAuth({dataPath: 'token'})}
+const conf = {
+    authStrategy: new LocalAuth({dataPath: 'data/token'}) 
+}
+if (process.env.chrome_path) {
+    conf.puppeteer = {product: "chrome", executablePath: process.env.chrome_path}
+}
 
 
-const client = new Client(clientConfig);
-
+const client = new Client(conf);
 client.on('qr', (qr) => {
     qrcode.generate(qr, {small: true});
 });
@@ -28,7 +29,6 @@ async function handleCommand(msg) {
 
     let command
     Array.from(wb.Commands.values()).some((cmd) => {
-        console.log(cmd)
         const triggers = cmd['triggers']
         if (triggers.includes(message.replace("!", ""))) {
             command = cmd
@@ -60,7 +60,6 @@ async function handleModule(msg) {
             inGroups: !module.inGroups && !msg.id.remote.includes("@g.us"),
             excludedUser: !module.excludedUser.includes(msg.from),
         }
-        console.log(check)
         if (Object.values(check).every((i) => i)) {
             return module.callback({msg, args, defaultArgs})
         }
