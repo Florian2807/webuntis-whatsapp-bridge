@@ -103,6 +103,7 @@ ___
 
 ### Environment .env
 - **NODE_ENV** should be on production
+- **chrome_path** with that you can provide the chrome path (it is not necessary on windows or in codespace)
   
 - **untis_baseurl**, **untis_school**, **untis_username**, **untis_password**
 - **untis_teacher_access** there are some commands that only works with a teacher account. If you have access to a teacher account set this to **true**
