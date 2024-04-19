@@ -46,7 +46,12 @@ module.exports = {
                 teacherInfos.push({ name: teacher.name, forename: teacher.forename, message: 'kein Unterricht' })
                 continue
             }
-            if (["CANCEL", "FREE"].includes(parsedLesson.cellState)) teacherInfos.push({ name: teacher.name, forename: teacher.forename, message: 'Unterricht entfällt' })
+            if (["CANCEL", "FREE"].includes(parsedLesson.cellState)) {
+                teacherInfos.push({ name: teacher.name, forename: teacher.forename.split('')[0] + '.', message: 'Unterricht entfällt' })
+            }
+            if (parsedLesson.cellState === "SUBSTITUTION" && parsedLesson.oldTeacher.find(t => t.id === teacher.id)) {
+                teacherInfos.push({ name: teacher.name, forename: teacher.forename.split('')[0] + '.', message: 'Stunde wird vertreten' })
+            }
             teacherInfos.push({
                 name: teacher.name,
                 forename: teacher.forename.split('')[0] + '.',
