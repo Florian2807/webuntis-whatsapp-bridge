@@ -22,11 +22,11 @@ module.exports = {
                 requestedLesson < 1)
         ) return 'Ungültige Stunde! \nVerwende beispielsweise `stunde:1`'
 
-        const currentLesson =  wb.Utils.getCurrentLesson(requestedLesson)
+        const currentLesson = wb.Utils.getCurrentLesson(requestedLesson)
         if (!currentLesson) {
             return `Aktuell ist kein Unterricht! \n\nDu kannst auch andere Stunden abfragen. Beispiel: \n\`${defaultArgs[0]} ${defaultArgs[1]} stunde:1\``
         }
-        const teacherInfos = []
+        let teacherInfos = []
         for (const teacher of foundTeachers) {
             const { data } = await got(`https://${process.env.untis_baseurl}/WebUntis/api/public/timetable/weekly/data?elementType=2&elementId=${teacher.id}&date=${todaysDate}&formatId=1`, {
                 headers: {
@@ -42,28 +42,40 @@ module.exports = {
             const searchLesson = data?.result?.data?.['elementPeriods']?.[teacher.id]?.find((lesson) => lesson?.date === parseInt(todaysDate.replaceAll("-", "")) && lesson?.startTime === parseInt(currentLesson?.start.replace(":", "")))
             const parsedLesson = wb.Utils.parseLesson(searchLesson, data?.result?.data?.['elements'])
 
-            if (!searchLesson || !parsedLesson) {
-                teacherInfos.push({ name: teacher.name, forename: teacher.forename, message: 'kein Unterricht' })
-                continue
+            const name = `${teacher.forename.split('')[0]}. ${teacher.name}`
+
+            if (parsedLesson) {
+                teacherInfos.push({ name: name, teacher: teacher, lesson: parsedLesson })
             }
-            if (["CANCEL", "FREE"].includes(parsedLesson.cellState)) {
-                teacherInfos.push({ name: teacher.name, forename: teacher.forename.split('')[0] + '.', message: 'Unterricht entfällt' })
-            }
-            if (parsedLesson.cellState === "SUBSTITUTION" && parsedLesson.oldTeacher.find(t => t.id === teacher.id)) {
-                teacherInfos.push({ name: teacher.name, forename: teacher.forename.split('')[0] + '.', message: 'Stunde wird vertreten' })
-            }
-            teacherInfos.push({
-                name: teacher.name,
-                forename: teacher.forename.split('')[0] + '.',
-                message: null,
-                subject: parsedLesson?.subject?.map(i => i.longName).join(', ') ?? 'Fach nicht bekannt',
-                room: parsedLesson?.room?.map(i => i.name).join(', ') ?? 'Raum nicht bekannt',
-                roomName: parsedLesson?.room?.map(i => i.longName).join(', ') ?? ''
-            })
         }
 
-        return `Lehrer ${currentLesson.lesson}. Stunde:\n\n` + teacherInfos
-            .map(t => t?.message ? `*${t.forename} ${t.name}*\n- ${t.message}` : `*${t.forename} ${t.name}*\n- ${t.room}(${t.roomName})\n- ${t.subject}`)
-            .join('\n') + (requestedLesson ? "" : `\n\nDu kannst auch andere Stunden abfragen. Beispiel: \n\`${defaultArgs[0]} ${defaultArgs[1]} stunde:1\``)
+        const messageData = wb.Utils.getUpdateMessageData(teacherInfos.map(i => i.lesson))
+
+
+        messageData.forEach(data => {
+            const index = messageData.indexOf(data)
+            teacherInfos[index]['messageData'] = data
+        })
+
+
+        // teacherInfos.push({
+        //     name: teacher.name,
+        //     forename: ,
+        //     message: null,
+        //     subject: parsedLesson?.subject?.map(i => i.longName).join(', ') ?? 'Fach nicht bekannt',
+        //     room: parsedLesson?.room?.map(i => i.name).join(', ') ?? 'Raum nicht bekannt',
+        //     roomName: parsedLesson?.room?.map(i => i.longName).join(', ') ?? ''
+        // })
+        let outputMessage = ''
+        for (const data of teacherInfos) {
+            const teacherVar = data.messageData.event === "Entfall" && data.messageData.oldTeacher ? '_Unterricht entfällt_\n' : ((data.messageData.oldTeacher === data.teacher.short) ? `_Unterricht wird vertreten_\n` : `_${data.messageData.event}_\n`)
+            const roomVar = data.messageData.oldRoom ? `~${data.messageData.oldRoom}~ -> ${data.messageData.room}` : data.messageData.room
+
+            const content = `*${data.name}*\n${data.messageData.message ? `- ${data.message}\n` : `${teacherVar}- ${roomVar} \n- ${data.messageData.subject}`}\n`
+
+            outputMessage += content
+        }
+
+        return `Lehrer ${currentLesson.lesson}. Stunde:\n\n` + outputMessage + (requestedLesson ? "" : `\n\nDu kannst auch andere Stunden abfragen. Beispiel: \n\`${defaultArgs[0]} ${defaultArgs[1]} stunde:1\``)
     },
 }
