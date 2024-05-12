@@ -1,11 +1,12 @@
 const qrcode = require('qrcode-terminal');
 const {Client, LocalAuth} = require('whatsapp-web.js');
 
-const clientConfig = process.env.NODE_ENV === "production" ? {
-    authStrategy: new LocalAuth({dataPath: 'token'}),
-    puppeteer: {product: "chrome", executablePath: "/usr/bin/chromium-browser"}
-} : {authStrategy: new LocalAuth({dataPath: 'token'})}
-
+const conf = {
+    authStrategy: new LocalAuth({dataPath: 'data/token'}) 
+}
+if (process.env.chrome_path) {
+    conf.puppeteer = {product: "chrome", executablePath: process.env.chrome_path}
+}
 
 const client = new Client(clientConfig);
 

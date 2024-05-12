@@ -77,6 +77,7 @@ For my personal use I use my private home phone number with a WhatsApp account.
 
 ### [config.json](./config.json.example)
 
+- **timetable** should looks like this :D
 - **class_name** can be anything, just to identify
 - **classID** this is the classID of WebUntis
 - **whatsapp_groupID** is the groupID of WhatsApp
@@ -84,13 +85,24 @@ For my personal use I use my private home phone number with a WhatsApp account.
 ---
 ```js
 {
-  "classes": [
-    {
-      "class_name": "Q1",
-      "classID": "123",
-      "whatsapp_groupID": "112233445566778899@g.us"
-    }
-  ]
+    "timetable": [
+        {"lesson": 1, "start": "07:50", "end": "08:35"},
+        {"lesson": 2, "start": "08:35", "end": "09:20"},
+        {"lesson": 3, "start": "09:40", "end": "10:25"},
+        {"lesson": 4, "start": "10:25", "end": "11:10"},
+        {"lesson": 5, "start": "11:30", "end": "12:15"},
+        {"lesson": 6, "start": "12:15", "end": "13:00"},
+        {"lesson": 7, "start": "13:20", "end": "14:05"},
+        {"lesson": 8, "start": "14:10", "end": "14:55"},
+        {"lesson": 9, "start": "14:55", "end": "15:40"}
+    ],
+    "classes": [
+        {
+            "class_name": "Q1",
+            "classID": "872",
+            "whatsapp_groupID": "123456789123456789@g.us"
+        }
+    ]
 }
 ```
 > [!TIP]
