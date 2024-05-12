@@ -68,7 +68,7 @@ module.exports = {
         // })
         let outputMessage = ''
         for (const data of teacherInfos) {
-            const teacherVar = data.messageData.event.cellstate === wb.Lang.dict['cellstate_translation']['CANCEL'],  && data.messageData.oldTeacher ? `_${wb.Lang.handle(__filename, "lesson_canceled")}_\n` : ((data.messageData.oldTeacher === data.teacher.short) ? `_${wb.Lang.handle(__filename, "lesson_is_substituted")}_\n` : `_${data.messageData.event.translated}_\n`)
+            const teacherVar = data.messageData.event.cellstate === wb.Lang.dict['cellstate_translation']['CANCEL'] && data.messageData.oldTeacher ? `_${wb.Lang.handle(__filename, "lesson_canceled")}_\n` : ((data.messageData.oldTeacher === data.teacher.short) ? `_${wb.Lang.handle(__filename, "lesson_is_substituted")}_\n` : `_${data.messageData.event.translated}_\n`)
             const roomVar = data.messageData.oldRoom ? `~${data.messageData.oldRoom}~ -> ${data.messageData.room}` : data.messageData.room
 
             const content = `*${data.name}*\n${data.messageData.message ? `- ${data.message}\n` : `${teacherVar}- ${roomVar} \n- ${data.messageData.subject}`}\n`
