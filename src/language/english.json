@@ -19,26 +19,26 @@
     "room.js": {
         "no_room_provided": "You must provide a room name \nExample: ${args0} 208",
         "room_doesnt_exist": "This room doesn't exist. Maybe try another term for the room",
-        "currently_no_class": "There's currently no class in session!\n\nYou can also query other hours. Example: \n`${args0} ${args1} hour:1`",
+        "currently_no_class": "There's currently no class in session!\n\nYou can also query other lessons. Example: \n`${args0} ${args1} lesson:1`",
         "no_class_in_room": "There is currently no class in this room!",
-        "output_message": "Lesson in room *${roomName}* during the ${currentLesson}. hour:\n- ${parsedSubject}\n- ${parsedTeacher} ${translatedCellstate}${additionalLessonCheck} ${requestedLessonCheck}",
+        "output_message": "Lesson in room *${roomName}* during the ${currentLesson}. lesson:\n- ${parsedSubject}\n- ${parsedTeacher} ${translatedCellstate}${additionalLessonCheck} ${requestedLessonCheck}",
         "lesson_parameter": "lesson",
         "subject_unknown": "Subject unknown",
-        "output_footer": "\n\nYou can also query other hours. Example: \n`${args0} ${args1} hour:1`"
+        "output_footer": "\n\nYou can also query other lessons. Example: \n`${args0} ${args1} lesson:1`"
     },
     "teacher.js": {
         "no_teacher_provided": "You must provide a teacher \nExample: ${args0} May",
         "teacher_not_found": "No teacher found! Are you sure you spelled the name correctly?",
         "lesson_parameter": "lesson",
-        "invalid_lesson": "Invalid hour! \nFor example, use `hour:1`",
-        "currently_no_lesson": "Currently, there is no lesson! \n\nYou can also query other hours. Example: \n`${args0} ${args1} hour:1`",
+        "invalid_lesson": "Invalid lesson! \nFor example, use `lesson:1`",
+        "currently_no_lesson": "Currently, there is no lesson! \n\nYou can also query other lessons. Example: \n`${args0} ${args1} lesson:1`",
         "teacher_no_lesson": "No lesson",
         "lesson_canceled": "Lesson canceled",
         "lesson_is_substituted": "Lesson is substituted",
         "subject_unknown": "Subject unknown",
         "room_unknown:": "Room unknown",
-        "output_header": "Teacher ${currentLesson}. hour:\n\n",
-        "output_footer": "\n\nYou can also query other hours. Example: \n`${args0} ${args1} hour:1`"
+        "output_header": "Teacher ${currentLesson}. lesson:\n\n",
+        "output_footer": "\n\nYou can also query other lessons. Example: \n`${args0} ${args1} lesson:1`"
     },
     "answerThanks.js": {
         "trigger": "thanks",
