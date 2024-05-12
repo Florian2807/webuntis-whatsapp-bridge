@@ -5,14 +5,14 @@ module.exports = {
     triggers: ['teacher', 'lehrer'],
     needTeacherAccess: true,
     callback: async ({ args, defaultArgs }) => {
-        if (!args[1]) return `Du musst einen Lehrer angeben \nBeispiel: ${defaultArgs[0]} May`
+        if (!args[1]) return wb.Lang.handle(__filename, "no_teacher_provided", {args0: defaultArgs[0]})
         const allTeachers = await wb.Webuntis.getTeachers()
         const foundTeachers = allTeachers.filter(t =>
             t.longName.toLowerCase().includes(args[1]) ||
             t.name.toLowerCase().includes(args[1]) ||
             t.foreName.toLowerCase().includes(args[1])
         ).map(t => { return { forename: t.foreName, name: t.longName, short: t.name, id: t.id } })
-        if (!foundTeachers.length) return 'Keinen Lehrer gefunden! Bist du sicher, dass du den Namen richtig geschrieben hast?'
+        if (!foundTeachers.length) return wb.Lang.handle(__filename, "teacher_not_found")
         const todaysDate = new Date().toISOString().split('T')[0]
 
         const requestedLesson = wb.Utils.getParameters(args, 'stunde', true)

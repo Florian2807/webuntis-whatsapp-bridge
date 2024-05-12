@@ -35,7 +35,7 @@ async function handleCommand(msg) {
             return true
         } else return false
     })
-    if (!command) return await msg.reply("Dieser Befehl gibt es nicht. \nIn meiner WhatsApp-Beschreibung findest du alle Befehle")
+    if (!command) return await msg.reply(wb.Lang.handle(__filename, "unknown_command"))
     
     const args = msg.body?.toLowerCase().split(' ');
     const defaultArgs = msg.body?.split(' ')

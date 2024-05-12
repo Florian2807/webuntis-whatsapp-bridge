@@ -14,15 +14,16 @@ module.exports = {
                 const foundClass = allClasses.find(i => i.name?.toLowerCase() === class_name?.toLowerCase())
                 
                 if (!class_name) {
-                    return 'Du musst den Namen der Klasse angeben \n > !config <KlassenName> \n\nBei Fragen schreib mich privat an (Nummer ist in der Beschreibung)';
+                    return wb.Lang.handle(__filename, "no_class_provided");
                 } else {
-                    if (!foundClass) return 'Ich habe keine Klasse mit diesem Namen gefunden! \nHinweis: Achte auf die 0 vor dem Namen (z.B. 09b)';
+                    if (!foundClass) return wb.Lang.handle(__filename, "class_not_found");
                     if (wb.config['classes'].find(c => c.whatsapp_groupID === whatsapp_groupID)) {
                         wb.config['classes'] = wb.config['classes'].filter(c => c.whatsapp_groupID !== whatsapp_groupID);
                     }
                     wb.config['classes'].push({class_name, classID: foundClass['id'], whatsapp_groupID, whatsapp_debug_groupID});
                     fs.writeFileSync('config.json', JSON.stringify(wb.config, null, 4));
-                    return `Fertig! Konfigurationen: \n\n*WhatsApp*: ${whatsapp_groupID}(*${whatsapp_group.name}*) \n*WebUntis*: ${foundClass.id}(*${foundClass.name}*)`
+                    const outputData = `\n\n*WhatsApp*: ${whatsapp_groupID}(*${whatsapp_group.name}*) \n*WebUntis*: ${foundClass.id}(*${foundClass.name}*)`
+                    return wb.Lang.handle(__filename, "successful_config_change", {outputData})
                 }
             }
             case 'check': {
@@ -33,11 +34,11 @@ module.exports = {
                 foundChats.forEach(c => {
                     output = output + `\n*WhatsApp*: ${c.whatsapp_groupID}(*${whatsapp_group.name}*) \n*WebUntis*: ${c.classID}(*${c.class_name}*)\n`;
                 });
-                if (!output.length) return 'No configuration found for this chat!';
-                return `*Current Configuration*:\n${output}`
+                if (!output.length) return wb.Lang.handle(__filename, "no_config_found");
+                return wb.Lang.handle(__filename, "current_config", {output})
             }
             default: {
-                return msg.reply('Unbekannter Befehl! \n > !config <set|check>');
+                return msg.reply(wb.Lang.handle(__filename, "wrong_usage"));
             }
 
         }

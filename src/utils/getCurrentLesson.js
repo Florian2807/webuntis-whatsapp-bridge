@@ -1,15 +1,5 @@
 module.exports = (lesson = null) => {
-    const timetable = [
-        {start: '07:50', end: '08:35', lesson: 1},
-        {start: '08:35', end: '09:20', lesson: 2},
-        {start: '09:40', end: '10:25', lesson: 3},
-        {start: '10:25', end: '11:10', lesson: 4},
-        {start: '11:30', end: '12:15', lesson: 5},
-        {start: '12:15', end: '13:00', lesson: 6},
-        {start: '13:20', end: '14:05', lesson: 7},
-        {start: '14:10', end: '14:55', lesson: 8},
-        {start: '14:55', end: '15:40', lesson: 9}
-    ];
+    const timetable = wb.config.timetable
 
     if (lesson) return timetable.find(i => i.lesson === lesson)
 
