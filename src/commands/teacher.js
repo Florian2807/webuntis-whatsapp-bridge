@@ -26,7 +26,7 @@ module.exports = {
         if (!currentLesson) {
             return wb.Lang.handle(__filename, "currently_no_lesson", { args0: defaultArgs[0], args1: defaultArgs[1] })
         }
-        const teacherInfos = []
+        let teacherInfos = []
         for (const teacher of foundTeachers) {
             const { data } = await got(`https://${process.env.untis_baseurl}/WebUntis/api/public/timetable/weekly/data?elementType=2&elementId=${teacher.id}&date=${todaysDate}&formatId=1`, {
                 headers: {
@@ -42,28 +42,40 @@ module.exports = {
             const searchLesson = data?.result?.data?.['elementPeriods']?.[teacher.id]?.find((lesson) => lesson?.date === parseInt(todaysDate.replaceAll("-", "")) && lesson?.startTime === parseInt(currentLesson?.start.replace(":", "")))
             const parsedLesson = wb.Utils.parseLesson(searchLesson, data?.result?.data?.['elements'])
 
-            if (!searchLesson || !parsedLesson) {
-                teacherInfos.push({ name: teacher.name, forename: teacher.forename, message: wb.Lang.handle(__filename, "teacher_no_lesson") })
-                continue
+            const name = `${teacher.forename.split('')[0]}. ${teacher.name}`
+
+            if (parsedLesson) {
+                teacherInfos.push({ name: name, teacher: teacher, lesson: parsedLesson })
             }
-            if (["CANCEL", "FREE"].includes(parsedLesson.cellState)) {
-                teacherInfos.push({ name: teacher.name, forename: teacher.forename.split('')[0] + '.', message: wb.Lang.handle(__filename, "lesson_canceled") })
-            }
-            if (parsedLesson.cellState === "SUBSTITUTION" && parsedLesson.oldTeacher.find(t => t.id === teacher.id)) {
-                teacherInfos.push({ name: teacher.name, forename: teacher.forename.split('')[0] + '.', message: wb.Lang.handle(__filename, "lesson_is_substituted") })
-            }
-            teacherInfos.push({
-                name: teacher.name,
-                forename: teacher.forename.split('')[0] + '.',
-                message: null,
-                subject: parsedLesson?.subject?.map(i => i.longName).join(', ') ?? wb.Lang.handle(__filename, "subject_unknown"),
-                room: parsedLesson?.room?.map(i => i.name).join(', ') ?? wb.Lang.handle(__filename, "room_unknown"),
-                roomName: parsedLesson?.room?.map(i => i.longName).join(', ') ?? ''
-            })
         }
 
-        return wb.Lang.handle(__filename, "output_header", { currentLesson: currentLesson.lesson }) + teacherInfos
-            .map(t => t?.message ? `*${t.forename} ${t.name}*\n- ${t.message}` : `*${t.forename} ${t.name}*\n- ${t.room}(${t.roomName})\n- ${t.subject}`)
-            .join('\n') + (requestedLesson ? "" : wb.Lang.handle(__filename, "output_footer", { args0: defaultArgs[0], args1: defaultArgs[1] }))
+        const messageData = wb.Utils.getUpdateMessageData(teacherInfos.map(i => i.lesson))
+
+
+        messageData.forEach(data => {
+            const index = messageData.indexOf(data)
+            teacherInfos[index]['messageData'] = data
+        })
+
+
+        // teacherInfos.push({
+        //     name: teacher.name,
+        //     forename: ,
+        //     message: null,
+        //     subject: parsedLesson?.subject?.map(i => i.longName).join(', ') ?? 'Fach nicht bekannt',
+        //     room: parsedLesson?.room?.map(i => i.name).join(', ') ?? 'Raum nicht bekannt',
+        //     roomName: parsedLesson?.room?.map(i => i.longName).join(', ') ?? ''
+        // })
+        let outputMessage = ''
+        for (const data of teacherInfos) {
+            const teacherVar = data.messageData.event.cellstate === wb.Lang.dict['cellstate_translation']['CANCEL'],  && data.messageData.oldTeacher ? `_${wb.Lang.handle(__filename, "lesson_canceled")}_\n` : ((data.messageData.oldTeacher === data.teacher.short) ? `_${wb.Lang.handle(__filename, "lesson_is_substituted")}_\n` : `_${data.messageData.event.translated}_\n`)
+            const roomVar = data.messageData.oldRoom ? `~${data.messageData.oldRoom}~ -> ${data.messageData.room}` : data.messageData.room
+
+            const content = `*${data.name}*\n${data.messageData.message ? `- ${data.message}\n` : `${teacherVar}- ${roomVar} \n- ${data.messageData.subject}`}\n`
+
+            outputMessage += content
+        }
+
+        return wb.Lang.handle(__filename, "output_header", { currentLesson: currentLesson.lesson }) + outputMessage + (requestedLesson ? "" : wb.Lang.handle(__filename, "output_footer", { args0: defaultArgs[0], args1: defaultArgs[1] }))
     },
 }
