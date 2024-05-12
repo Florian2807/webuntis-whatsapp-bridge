@@ -21,11 +21,24 @@
         "room_doesnt_exist": "Dieser Raum existiert nicht. Versuche es vielleicht mit einem anderen Begriff für den Raum",
         "currently_no_class": "Aktuell ist doch gar kein Unterricht!\n\nDu kannst auch andere Stunden abfragen. Beispiel: \n`${args0} ${args1} stunde:1`",
         "no_class_in_room": "Aktuell ist in diesem Raum kein Unterricht!",
-        "output_message": "Unterricht in Raum *${roomName}* in der ${currentLesson}. Stunde:\n- ${parsedSubject}\n- ${parsedTeacher} ${translatedCellstate}${additionalLessonCheck} ${requestedLessonCheck}"
+        "output_message": "Unterricht in Raum *${roomName}* in der ${currentLesson}. Stunde:\n- ${parsedSubject}\n- ${parsedTeacher} ${translatedCellstate}${additionalLessonCheck} ${requestedLessonCheck}",
+        "lesson_parameter": "stunde",
+        "subject_unknown": "Fach nicht bekannt",
+        "output_footer": "\n\nDu kannst auch andere Stunden abfragen. Beispiel: \n`${args0} ${args1} stunde:1`"
     },
     "teacher.js": {
         "no_teacher_provided": "Du musst einen Lehrer angeben \nBeispiel: ${args0} May",
-        "teacher_not_found": "Keinen Lehrer gefunden! Bist du sicher, dass du den Namen richtig geschrieben hast?"
+        "teacher_not_found": "Keinen Lehrer gefunden! Bist du sicher, dass du den Namen richtig geschrieben hast?",
+        "lesson_parameter": "stunde",
+        "invalid_lesson": "Ungültige Stunde! \nVerwende beispielsweise `stunde:1`",
+        "currently_no_lesson": "Aktuell ist kein Unterricht! \n\nDu kannst auch andere Stunden abfragen. Beispiel: \n`${args0} ${args1} stunde:1`",
+        "teacher_no_lesson": "kein Unterricht",
+        "lesson_canceled": "Unterricht entfällt",
+        "lesson_is_substituted": "Unterricht wird vertreten",
+        "subject_unknown": "Fach nicht bekannt",
+        "room_unknown:": "Raum nicht bekannt",
+        "output_header": "Lehrer ${currentLesson}. Stunde:\n\n",
+        "output_footer": "\n\nDu kannst auch andere Stunden abfragen. Beispiel: \n`${args0} ${args1} stunde:1`"
     },
     "answerThanks.js": {
         "trigger": "danke",

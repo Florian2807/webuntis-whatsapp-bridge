@@ -5,7 +5,7 @@ module.exports = {
     triggers: ['teacher', 'lehrer'],
     needTeacherAccess: true,
     callback: async ({ args, defaultArgs }) => {
-        if (!args[1]) return wb.Lang.handle(__filename, "no_teacher_provided", {args0: defaultArgs[0]})
+        if (!args[1]) return wb.Lang.handle(__filename, "no_teacher_provided", { args0: defaultArgs[0] })
         const allTeachers = await wb.Webuntis.getTeachers()
         const foundTeachers = allTeachers.filter(t =>
             t.longName.toLowerCase().includes(args[1]) ||
@@ -15,16 +15,16 @@ module.exports = {
         if (!foundTeachers.length) return wb.Lang.handle(__filename, "teacher_not_found")
         const todaysDate = new Date().toISOString().split('T')[0]
 
-        const requestedLesson = wb.Utils.getParameters(args, 'stunde', true)
+        const requestedLesson = wb.Utils.getParameters(args, wb.Lang.handle(__filename, "lesson_parameter"), true)
         if (requestedLesson &&
             (typeof requestedLesson !== 'number' ||
                 requestedLesson > 9 ||
                 requestedLesson < 1)
-        ) return 'Ungültige Stunde! \nVerwende beispielsweise `stunde:1`'
+        ) return wb.Lang.handle(__filename, 'invalid_lesson')
 
-        const currentLesson =  wb.Utils.getCurrentLesson(requestedLesson)
+        const currentLesson = wb.Utils.getCurrentLesson(requestedLesson)
         if (!currentLesson) {
-            return `Aktuell ist kein Unterricht! \n\nDu kannst auch andere Stunden abfragen. Beispiel: \n\`${defaultArgs[0]} ${defaultArgs[1]} stunde:1\``
+            return wb.Lang.handle(__filename, "currently_no_lesson", { args0: defaultArgs[0], args1: defaultArgs[1] })
         }
         const teacherInfos = []
         for (const teacher of foundTeachers) {
@@ -43,27 +43,27 @@ module.exports = {
             const parsedLesson = wb.Utils.parseLesson(searchLesson, data?.result?.data?.['elements'])
 
             if (!searchLesson || !parsedLesson) {
-                teacherInfos.push({ name: teacher.name, forename: teacher.forename, message: 'kein Unterricht' })
+                teacherInfos.push({ name: teacher.name, forename: teacher.forename, message: wb.Lang.handle(__filename, "teacher_no_lesson") })
                 continue
             }
             if (["CANCEL", "FREE"].includes(parsedLesson.cellState)) {
-                teacherInfos.push({ name: teacher.name, forename: teacher.forename.split('')[0] + '.', message: 'Unterricht entfällt' })
+                teacherInfos.push({ name: teacher.name, forename: teacher.forename.split('')[0] + '.', message: wb.Lang.handle(__filename, "lesson_canceled") })
             }
             if (parsedLesson.cellState === "SUBSTITUTION" && parsedLesson.oldTeacher.find(t => t.id === teacher.id)) {
-                teacherInfos.push({ name: teacher.name, forename: teacher.forename.split('')[0] + '.', message: 'Stunde wird vertreten' })
+                teacherInfos.push({ name: teacher.name, forename: teacher.forename.split('')[0] + '.', message: wb.Lang.handle(__filename, "lesson_is_substituted") })
             }
             teacherInfos.push({
                 name: teacher.name,
                 forename: teacher.forename.split('')[0] + '.',
                 message: null,
-                subject: parsedLesson?.subject?.map(i => i.longName).join(', ') ?? 'Fach nicht bekannt',
-                room: parsedLesson?.room?.map(i => i.name).join(', ') ?? 'Raum nicht bekannt',
+                subject: parsedLesson?.subject?.map(i => i.longName).join(', ') ?? wb.Lang.handle(__filename, "subject_unknown"),
+                room: parsedLesson?.room?.map(i => i.name).join(', ') ?? wb.Lang.handle(__filename, "room_unknown"),
                 roomName: parsedLesson?.room?.map(i => i.longName).join(', ') ?? ''
             })
         }
 
-        return `Lehrer ${currentLesson.lesson}. Stunde:\n\n` + teacherInfos
+        return wb.Lang.handle(__filename, "output_header", { currentLesson: currentLesson.lesson }) + teacherInfos
             .map(t => t?.message ? `*${t.forename} ${t.name}*\n- ${t.message}` : `*${t.forename} ${t.name}*\n- ${t.room}(${t.roomName})\n- ${t.subject}`)
-            .join('\n') + (requestedLesson ? "" : `\n\nDu kannst auch andere Stunden abfragen. Beispiel: \n\`${defaultArgs[0]} ${defaultArgs[1]} stunde:1\``)
+            .join('\n') + (requestedLesson ? "" : wb.Lang.handle(__filename, "output_footer", { args0: defaultArgs[0], args1: defaultArgs[1] }))
     },
 }

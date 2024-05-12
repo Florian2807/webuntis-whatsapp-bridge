@@ -24,7 +24,7 @@ module.exports = {
             }, throwHttpErrors: false
         }).json()
 
-        const requestedLesson = wb.Utils.getParameters(args, 'stunde', true)
+        const requestedLesson = wb.Utils.getParameters(args, wb.Lang.handle(__filename, "lesson_parameter"), true)
 
         const currentLesson = wb.Utils.getCurrentLesson(requestedLesson)
         if (!currentLesson) return wb.Lang.handle(__filename, "currently_no_class", {args0: defaultArgs[0], args1: defaultArgs[1]})
@@ -35,11 +35,11 @@ module.exports = {
         const parsedLesson = wb.Utils.parseLesson(searchLesson, roomData?.result?.data?.['elements'])
         if (!parsedLesson) return wb.Lang.handle(__filename, "no_class_in_room")
 
-        const parsedSubject = parsedLesson?.subject?.map(i => i.longName)?.join(', ') ?? 'Fach nicht bekannt'
+        const parsedSubject = parsedLesson?.subject?.map(i => i.longName)?.join(', ') ?? wb.Lang.handle(__filename, "subject_unknown")
         const parsedTeacher = parsedLesson?.teacher?.map(i => i.name).join(', ')
         const translatedCellstate = wb.Utils.translateCellstate(parsedLesson.cellState, parsedLesson?.teacher?.filter(t => t)) !== 'Normal' ? `\n- *${wb.Utils.translateCellstate(parsedLesson.cellState, parsedLesson?.teacher?.filter(t => t))}*` : ''
         const additionalLessonCheck = parsedLesson?.cellState === "ADDITIONAL" ? "\n- " + parsedLesson.lessonText : ""
-        const requestedLessonCheck = (requestedLesson ? "" : `\n\nDu kannst auch andere Stunden abfragen. Beispiel: \n\`${defaultArgs[0]} ${defaultArgs[1]} stunde:1\``)
+        const requestedLessonCheck = (requestedLesson ? "" : wb.Lang.handle(__filename, "output_footer", {args0: defaultArgs[0], args1: defaultArgs[1]}))
         return wb.Lang.handle(__filename, "output_message", {roomName, currentLesson: currentLesson.lesson, parsedSubject, parsedTeacher, translatedCellstate, additionalLessonCheck, requestedLessonCheck})
     },
 }
