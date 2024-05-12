@@ -1,0 +1,43 @@
+{
+    "language-handler.js": {
+        "no_message_found": "Something went wrong. \nTry again later :)"
+    },
+    "whatsapp.js": {
+        "unknown_command": "This command does not exist. \nYou can find all commands in my WhatsApp description"
+    },
+    "config.js": {
+        "no_class_provided": "You must provide the class name \n > !config <ClassName> \n\nIf you have any questions, message me privately (number is in the description)",
+        "class_not_found": "I couldn't find a class with that name! \nNote: Make sure to include the leading zero in the name (e.g., 09b)",
+        "successful_config_change": "Done! Configurations: ${outputData}",
+        "no_config_found": "No configuration found for this chat",
+        "current_config": "Current configuration:\n${output}",
+        "wrong_usage": "Unknown command! \n > !config <set|check>"
+    },
+    "ping.js": {
+        "pong_message": "Pong!"
+    },
+    "room.js": {
+        "no_room_provided": "You must provide a room name \nExample: ${args0} 208",
+        "room_doesnt_exist": "This room doesn't exist. Maybe try another term for the room",
+        "currently_no_class": "There's currently no class in session!\n\nYou can also query other lessons. Example: \n`${args0} ${args1} hour:1`",
+        "no_class_in_room": "There is currently no class in this room!",
+        "output_message": "Lesson in room *${roomName}* during ${currentLesson}. hour:\n- ${parsedSubject}\n- ${parsedTeacher} ${translatedCellstate}${additionalLessonCheck} ${requestedLessonCheck}"
+    },
+    "teacher.js": {
+        "no_teacher_provided": "You must provide a teacher \nExample: ${args0} May",
+        "teacher_not_found": "No teacher found! Are you sure you spelled the name correctly?"
+    },
+    "answerThanks.js": {
+        "trigger": "thanks",
+        "reply": "🤖📣 You're welcome"
+    },
+    "cellstate_translation": {
+        "STANDARD": "Standard",
+        "CANCEL": "Canceled",
+        "FREE": "Free",
+        "SUBSTITUTION": "Substitution",
+        "ROOMSUBSTITUTION": "Room Change",
+        "ADDITIONAL": "Additional Lesson"
+    },
+    "weekdays": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+}
