@@ -121,6 +121,7 @@ ___
 - **untis_teacher_access** there are some commands that only works with a teacher account. If you have access to a teacher account set this to **true**
   
 - **whatsapp_admins** every user that is permitted to use admin only commands like *!eval*
+- **language_model** you can choose the language of your bot. You can add your own language model in src/language/[language].json
 - **APIPORT** API Port of the API :D
 
 ![Construction WebUntis-URL](https://i.2807.eu/jqlb8.png)
@@ -136,6 +137,8 @@ untis_password="your password here"
 untis_teacher_access=false
 
 whatsapp_admins=['491234567890@c.us']
+
+language_model="english.json"
 
 APIPORT="5006"
 ```
