@@ -52,5 +52,8 @@
         "ROOMSUBSTITUTION": "Raum-Verlegung",
         "ADDITIONAL": "Zusätzlicher Unterricht"
     },
+    "general": {
+        "translated_lesson": "Stunde"
+    },
     "weekdays": ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"]
 }

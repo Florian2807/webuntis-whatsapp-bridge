@@ -52,5 +52,8 @@
         "ROOMSUBSTITUTION": "Room Change",
         "ADDITIONAL": "Additional Lesson"
     },
+    "general": {
+        "translated_lesson": "Lesson"
+    },
     "weekdays": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
 }
