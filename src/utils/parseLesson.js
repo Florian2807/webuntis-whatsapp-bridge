@@ -1,3 +1,4 @@
+
 module.exports = (lesson, elements) => {
     if (!lesson) return undefined
 
@@ -6,9 +7,8 @@ module.exports = (lesson, elements) => {
     const allSubjects = elements.filter((i) => i.type === 3)
     const allRooms = elements.filter((i) => i.type === 4)
     const notRegular = lesson?.elements.filter((element) => element.state !== 'REGULAR')
-
     return {
-        lesson: [750, 835, 940, 1025, 1130, 1215, 1320, 1410, 1455].indexOf(lesson.startTime) + 1,
+        lesson: wb.config['timetable'].map(i => i.start.replace(/^0|:/g, '')).indexOf(JSON.stringify(lesson.startTime)) + 1,
         id: lesson.id,
         date: lesson.date,
         startTime: lesson.startTime,

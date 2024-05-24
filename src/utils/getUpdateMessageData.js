@@ -1,5 +1,5 @@
 module.exports = (updates = []) => {
-    const weekdays = ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag']
+    const weekdays = wb.Lang.dict['weekdays']
     const output = []
     updates.forEach(update => {
         const event = wb.Utils.translateCellstate(update.cellState, update.teacher.filter(t => t))
@@ -13,7 +13,7 @@ module.exports = (updates = []) => {
             room: update.room.map(i => i.name).join(', '),
             oldRoom: update.oldRoom.filter(i => i).map(i => i.name).join(', '),
             message: update.substText.length ? `- ${update.substText}` : '',
-            emoji: getRightEmoji(event),
+            emoji: getRightEmoji(event.cellstate)
         }
         output.push(element)
     });
@@ -22,12 +22,12 @@ module.exports = (updates = []) => {
 
 function getRightEmoji(cellState) {
     const list = {
-        "Normal": "🟢",
-        "Entfall": "🔴",
-        "Frei": "🔴",
-        "Vertretung": "🟠",
-        "Raum-Verlegung": "🟠",
-        "Zusätzlicher Unterricht": "🟠"
+        "STANDARD": "🟢",
+        "CANCEL": "🔴",
+        "FREE": "🔴",
+        "SUBSTITUTION": "🟠",
+        "ROOMSUBSTITUTION": "🟠",
+        "ADDITONAL": "🟠"
     }
     return list[cellState]
 }

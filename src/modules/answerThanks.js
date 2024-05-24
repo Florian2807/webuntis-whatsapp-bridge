@@ -6,8 +6,8 @@ module.exports = {
     description: 'answer to thanks xd',
 
     callback: async ({msg}) => {
-        if(msg.body?.toLowerCase().includes("danke")) {
-            await msg.reply("🤖📣 Gerne Gerne")
+        if(msg.body?.toLowerCase().includes(wb.Lang.handle(__filename, "trigger"))) {
+            await msg.reply(wb.Lang.handle(__filename, "reply"))
         }
     }
 }

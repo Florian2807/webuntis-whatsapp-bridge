@@ -5,26 +5,26 @@ module.exports = {
     triggers: ['teacher', 'lehrer'],
     needTeacherAccess: true,
     callback: async ({ args, defaultArgs }) => {
-        if (!args[1]) return `Du musst einen Lehrer angeben \nBeispiel: ${defaultArgs[0]} May`
+        if (!args[1]) return wb.Lang.handle(__filename, "no_teacher_provided", { args0: defaultArgs[0] })
         const allTeachers = await wb.Webuntis.getTeachers()
         const foundTeachers = allTeachers.filter(t =>
             t.longName.toLowerCase().includes(args[1]) ||
             t.name.toLowerCase().includes(args[1]) ||
             t.foreName.toLowerCase().includes(args[1])
         ).map(t => { return { forename: t.foreName, name: t.longName, short: t.name, id: t.id } })
-        if (!foundTeachers.length) return 'Keinen Lehrer gefunden! Bist du sicher, dass du den Namen richtig geschrieben hast?'
+        if (!foundTeachers.length) return wb.Lang.handle(__filename, "teacher_not_found")
         const todaysDate = new Date().toISOString().split('T')[0]
 
-        const requestedLesson = wb.Utils.getParameters(args, 'stunde', true)
+        const requestedLesson = wb.Utils.getParameters(args, wb.Lang.handle(__filename, "lesson_parameter"), true)
         if (requestedLesson &&
             (typeof requestedLesson !== 'number' ||
                 requestedLesson > 9 ||
                 requestedLesson < 1)
-        ) return 'Ungültige Stunde! \nVerwende beispielsweise `stunde:1`'
+        ) return wb.Lang.handle(__filename, 'invalid_lesson')
 
         const currentLesson = wb.Utils.getCurrentLesson(requestedLesson)
         if (!currentLesson) {
-            return `Aktuell ist kein Unterricht! \n\nDu kannst auch andere Stunden abfragen. Beispiel: \n\`${defaultArgs[0]} ${defaultArgs[1]} stunde:1\``
+            return wb.Lang.handle(__filename, "currently_no_lesson", { args0: defaultArgs[0], args1: defaultArgs[1] })
         }
         let teacherInfos = []
         for (const teacher of foundTeachers) {
@@ -68,7 +68,7 @@ module.exports = {
         // })
         let outputMessage = ''
         for (const data of teacherInfos) {
-            const teacherVar = data.messageData.event === "Entfall" && data.messageData.oldTeacher ? '_Unterricht entfällt_\n' : ((data.messageData.oldTeacher === data.teacher.short) ? `_Unterricht wird vertreten_\n` : `_${data.messageData.event}_\n`)
+            const teacherVar = data.messageData.event.cellstate === wb.Lang.dict['cellstate_translation']['CANCEL'] && data.messageData.oldTeacher ? `_${wb.Lang.handle(__filename, "lesson_canceled")}_\n` : ((data.messageData.oldTeacher === data.teacher.short) ? `_${wb.Lang.handle(__filename, "lesson_is_substituted")}_\n` : `_${data.messageData.event.translated}_\n`)
             const roomVar = data.messageData.oldRoom ? `~${data.messageData.oldRoom}~ -> ${data.messageData.room}` : data.messageData.room
 
             const content = `*${data.name}*\n${data.messageData.message ? `- ${data.message}\n` : `${teacherVar}- ${roomVar} \n- ${data.messageData.subject}`}\n`
@@ -76,6 +76,6 @@ module.exports = {
             outputMessage += content
         }
 
-        return `Lehrer ${currentLesson.lesson}. Stunde:\n\n` + outputMessage + (requestedLesson ? "" : `\n\nDu kannst auch andere Stunden abfragen. Beispiel: \n\`${defaultArgs[0]} ${defaultArgs[1]} stunde:1\``)
+        return wb.Lang.handle(__filename, "output_header", { currentLesson: currentLesson.lesson }) + outputMessage + (requestedLesson ? "" : wb.Lang.handle(__filename, "output_footer", { args0: defaultArgs[0], args1: defaultArgs[1] }))
     },
 }

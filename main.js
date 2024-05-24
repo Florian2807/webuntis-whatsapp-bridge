@@ -2,6 +2,10 @@ global.wb = {}
 require('dotenv').config()
 wb.config = require("./config.json")
 
+wb.Lang = {}
+wb.Lang.dict = require(`./src/language/${process.env['language_model']}`)
+wb.Lang.handle = require('./src/language/language-handler.js') 
+
 wb.Webuntis = require("./clients/webuntis.js")
 wb.Webuntis.login().then(() => console.log("WebUntis connected!"))
 

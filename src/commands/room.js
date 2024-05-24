@@ -7,7 +7,7 @@ module.exports = {
     triggers: ['room', 'raum'],
     needTeacherAccess: true,
     callback: async ({args, defaultArgs}) => {
-        if (!args[1]) return `Du musst einen Raum-Namen angeben \nBeispiel: ${args[0]} 208`
+        if (!args[1]) return wb.Lang.handle(__filename, "no_room_provided", {args0: args[0]})
         const {data} = await got(`https://${process.env.untis_baseurl}/WebUntis/api/public/timetable/weekly/pageconfig?type=4`, {
             headers: {
                 'Cookie': wb.Webuntis._buildCookies(),
@@ -16,7 +16,7 @@ module.exports = {
         const room = data.elements.find(e => [e.name?.replace("R", ""), e.name?.toLowerCase(), e.longName?.toLowerCase(), e.displayName?.toLowerCase()].includes(args[1].toLowerCase()))
         const roomID = room?.id
         const roomName = room?.name
-        if (!roomID) return 'Dieser Raum existiert nicht. Versuche es vielleicht mit einem anderen Begriff für den Raum'
+        if (!roomID) return wb.Lang.handle(__filename, "room_doesnt_exist")
         const todaysDate = new Date().toISOString().split('T')[0]
         const {data: roomData} = await got(`https://${process.env.untis_baseurl}/WebUntis/api/public/timetable/weekly/data?elementType=4&elementId=${roomID}&date=${todaysDate}&formatId=1`, {
             headers: {
@@ -24,22 +24,24 @@ module.exports = {
             }, throwHttpErrors: false
         }).json()
 
-        const requestedLesson = wb.Utils.getParameters(args, 'stunde', true)
+        const requestedLesson = wb.Utils.getParameters(args, wb.Lang.handle(__filename, "lesson_parameter"), true)
 
         const currentLesson = wb.Utils.getCurrentLesson(requestedLesson)
-        if (!currentLesson) return `Aktuell ist doch gar kein Unterricht!\n\nDu kannst auch andere Stunden abfragen. Beispiel: \n\`${defaultArgs[0]} ${defaultArgs[1]} stunde:1\``
+        if (!currentLesson) return wb.Lang.handle(__filename, "currently_no_class", {args0: defaultArgs[0], args1: defaultArgs[1]})
 
         const searchLesson = roomData?.result?.data?.['elementPeriods']?.[roomID]?.find((lesson) => lesson?.date === parseInt(todaysDate.replaceAll("-", "")) && lesson?.startTime === parseInt(currentLesson?.start.replace(":", "")))
-        if (!searchLesson) return 'Aktuell ist in diesem Raum kein Unterricht!'
+        if (!searchLesson) return wb.Lang.handle(__filename, "no_class_in_room")
 
         const parsedLesson = wb.Utils.parseLesson(searchLesson, roomData?.result?.data?.['elements'])
-        if (!parsedLesson) return 'Aktuell ist in diesem Raum kein Unterricht!'
+        if (!parsedLesson) return wb.Lang.handle(__filename, "no_class_in_room")
 
-        return `Unterricht in Raum *${roomName}* in der ${currentLesson.lesson}. Stunde:` +
-            `\n- ${parsedLesson?.subject?.map(i => i.longName)?.join(', ') ?? 'Fach nicht bekannt'}` +
-            `\n- ${parsedLesson?.teacher?.map(i => i.name).join(', ')} ` +
-            `${wb.Utils.translateCellstate(parsedLesson.cellState, parsedLesson?.teacher?.filter(t => t)) !== 'Normal' ? `\n- *${wb.Utils.translateCellstate(parsedLesson.cellState, parsedLesson?.teacher?.filter(t => t))}*` : ''}` +
-            `${parsedLesson?.cellState === "ADDITIONAL" ? "\n- " + parsedLesson.lessonText : ""}` + 
-            (requestedLesson ? "" : `\n\nDu kannst auch andere Stunden abfragen. Beispiel: \n\`${defaultArgs[0]} ${defaultArgs[1]} stunde:1\``)
+        const parsedSubject = parsedLesson?.subject?.map(i => i.longName)?.join(', ') ?? wb.Lang.handle(__filename, "subject_unknown")
+        const parsedTeacher = parsedLesson?.teacher?.map(i => i.name).join(', ')
+        const translatedCellstate = wb.Utils.translateCellstate(parsedLesson.cellState, parsedLesson?.teacher?.filter(t => t)) !== 'Normal' ? `\n- *${wb.Utils.translateCellstate(parsedLesson.cellState, parsedLesson?.teacher?.filter(t => t)).translated}*` : ''
+        const additionalLessonCheck = parsedLesson?.cellState === "ADDITIONAL" ? "\n- " + parsedLesson.lessonText : ""
+        const requestedLessonCheck = (requestedLesson ? "" : wb.Lang.handle(__filename, "output_footer", {args0: defaultArgs[0], args1: defaultArgs[1]}))
+        return wb.Lang.handle(__filename, "output_message", {roomName, currentLesson: currentLesson.lesson, parsedSubject, parsedTeacher, translatedCellstate, additionalLessonCheck, requestedLessonCheck})
     },
 }
+
+

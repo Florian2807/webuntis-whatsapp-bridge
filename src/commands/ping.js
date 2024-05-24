@@ -3,6 +3,6 @@ module.exports = {
     triggers: ['ping'],
     needTeacherAccess: false,
     callback: ({msg}) => {
-        return msg.reply('Pong!');
+        return msg.reply(wb.Lang.handle(__filename, "pong_message"));
     },
 }

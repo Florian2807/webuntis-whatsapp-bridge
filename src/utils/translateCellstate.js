@@ -1,14 +1,7 @@
 module.exports = (cellState, lehrer) => {
-    const xd = {
-        "STANDARD": "Normal",
-        "CANCEL": "Entfall",
-        "FREE": "Frei",
-        "SUBSTITUTION": "Vertretung",
-        "ROOMSUBSTITUTION": "Raum-Verlegung",
-        "ADDITIONAL": "Zusätzlicher Unterricht",
-    }
+    const xd = wb.Lang.dict["cellstate_translation"]
     if (lehrer.map(i => i.id).includes(0)) {
-        return xd['CANCEL']
+        return {cellstate: 'CANCEL', translated: xd['CANCEL']}
     }
-    return xd[cellState]
+    return {cellstate: cellState, translated: xd[cellState]}
 }
