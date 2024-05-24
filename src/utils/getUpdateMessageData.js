@@ -25,7 +25,7 @@ function getRightEmoji(cellState) {
         "STANDARD": "🟢",
         "CANCEL": "🔴",
         "FREE": "🔴",
-        "SUBSTITION": "🟠",
+        "SUBSTITUTION": "🟠",
         "ROOMSUBSTITUTION": "🟠",
         "ADDITONAL": "🟠"
     }

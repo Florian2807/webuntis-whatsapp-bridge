@@ -37,7 +37,7 @@ module.exports = {
 
         const parsedSubject = parsedLesson?.subject?.map(i => i.longName)?.join(', ') ?? wb.Lang.handle(__filename, "subject_unknown")
         const parsedTeacher = parsedLesson?.teacher?.map(i => i.name).join(', ')
-        const translatedCellstate = wb.Utils.translateCellstate(parsedLesson.cellState, parsedLesson?.teacher?.filter(t => t)) !== 'Normal' ? `\n- *${wb.Utils.translateCellstate(parsedLesson.cellState, parsedLesson?.teacher?.filter(t => t))}*` : ''
+        const translatedCellstate = wb.Utils.translateCellstate(parsedLesson.cellState, parsedLesson?.teacher?.filter(t => t)) !== 'Normal' ? `\n- *${wb.Utils.translateCellstate(parsedLesson.cellState, parsedLesson?.teacher?.filter(t => t)).translated}*` : ''
         const additionalLessonCheck = parsedLesson?.cellState === "ADDITIONAL" ? "\n- " + parsedLesson.lessonText : ""
         const requestedLessonCheck = (requestedLesson ? "" : wb.Lang.handle(__filename, "output_footer", {args0: defaultArgs[0], args1: defaultArgs[1]}))
         return wb.Lang.handle(__filename, "output_message", {roomName, currentLesson: currentLesson.lesson, parsedSubject, parsedTeacher, translatedCellstate, additionalLessonCheck, requestedLessonCheck})

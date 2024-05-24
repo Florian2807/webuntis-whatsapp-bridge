@@ -33,7 +33,7 @@ module.exports = async ({classID}) => {
         messageData.forEach(data => {
             const teacherVar = data.event.cellstate === "CANCEL" && data.oldTeacher ? data.oldTeacher : ( data.oldTeacher ? `~${data.oldTeacher}~ -> ${data.teacher}` : data.teacher)
             const roomVar = data.oldRoom ? `~${data.oldRoom}~ -> ${data.room}` : data.room
-            const content = `*${data.emoji} ${data.weekday} ${data.lesson}. Stunde ${data.emoji}* \n _${data.event.translated}_ \n - ${data.subject} \n - ${teacherVar} \n - ${roomVar} ${data.message ? `\n ${data.message}` : ""}`
+            const content = `*${data.emoji} ${data.weekday} ${data.lesson}. ${wb.Lang.dict['general'].translated_lesson} ${data.emoji}* \n _${data.event.translated}_ \n - ${data.subject} \n - ${teacherVar} \n - ${roomVar} ${data.message ? `\n ${data.message}` : ""}`
     
             wb.Whatsapp.sendMessage(wb.config.classes.find(i => i['classID'] === classID)['whatsapp_groupID'], content)
         });
