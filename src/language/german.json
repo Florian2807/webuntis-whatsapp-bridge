@@ -1,62 +1,70 @@
 {
-    "language-handler.js": {
-        "no_message_found": "Es ist etwas schief gelaufen. \n Versuche es später erneut :)"
-    },
-    "whatsapp.js": {
-        "unknown_command": "Dieser Befehl gibt es nicht. \nIn meiner WhatsApp-Beschreibung findest du alle Befehle"
-    },
-    "config.js": {
-        "no_class_provided": "Du musst den Namen der Klasse angeben \n > !config <KlassenName> \n\nBei Fragen schreib mich privat an (Nummer ist in der Beschreibung)",
-        "class_not_found": "Ich habe keine Klasse mit diesem Namen gefunden! \nHinweis: Achte auf die 0 vor dem Namen (z.B. 09b)",
-        "successful_config_change": "Fertig! Konfigurationen: ${outputData}",
-        "no_config_found": "Es wurde keine Konfiguration für diesen Chat gefunden",
-        "current_config": "Aktuelle Konfiguration:\n${output}",
-        "wrong_usage": "Unbekannter Befehl! \n > !config <set|check>"
-    },
-    "ping.js": {
-        "pong_message": "Pong!"
-    },
-    "room.js": {
-        "no_room_provided": "Du musst einen Raum-Namen angeben \nBeispiel: ${args0} 208",
-        "room_doesnt_exist": "Dieser Raum existiert nicht. Versuche es vielleicht mit einem anderen Begriff für den Raum",
-        "currently_no_class": "Aktuell ist doch gar kein Unterricht!\n\nDu kannst auch andere Stunden abfragen. Beispiel: \n`${args0} ${args1} stunde:1`",
-        "no_class_in_room": "Aktuell ist in diesem Raum kein Unterricht!",
-        "output_message": "Unterricht in Raum *${roomName}* in der ${currentLesson}. Stunde:\n- ${parsedSubject}\n- ${parsedTeacher} ${translatedCellstate}${additionalLessonCheck} ${requestedLessonCheck}",
-        "lesson_parameter": "stunde",
-        "subject_unknown": "Fach nicht bekannt",
-        "output_footer": "\n\nDu kannst auch andere Stunden abfragen. Beispiel: \n`${args0} ${args1} stunde:1`"
-    },
-    "teacher.js": {
-        "no_teacher_provided": "Du musst einen Lehrer angeben \nBeispiel: ${args0} May",
-        "teacher_not_found": "Keinen Lehrer gefunden! Bist du sicher, dass du den Namen richtig geschrieben hast?",
-        "lesson_parameter": "stunde",
-        "invalid_lesson": "Ungültige Stunde! \nVerwende beispielsweise `stunde:1`",
-        "currently_no_lesson": "Aktuell ist kein Unterricht! \n\nDu kannst auch andere Stunden abfragen. Beispiel: \n`${args0} ${args1} stunde:1`",
-        "teacher_no_lesson": "kein Unterricht",
-        "lesson_canceled": "Unterricht entfällt",
-        "lesson_is_substituted": "Unterricht wird vertreten",
-        "subject_unknown": "Fach nicht bekannt",
-        "room_unknown:": "Raum nicht bekannt",
-        "output_header": "Lehrer ${currentLesson}. Stunde:\n\n",
-        "output_footer": "\n\nDu kannst auch andere Stunden abfragen. Beispiel: \n`${args0} ${args1} stunde:1`"
-    },
-    "checkUntisUpdates.js": {
-        "lessons_omitted": "Der Unterricht entfällt!"
-    },
-    "answerThanks.js": {
-        "trigger": "danke",
-        "reply": "🤖📣 Gerne Gerne"
-    },
-    "cellstate_translation": {
-        "STANDARD": "Normal",
-        "CANCEL": "Entfall",
-        "FREE": "Frei",
-        "SUBSTITUTION": "Vertretung",
-        "ROOMSUBSTITUTION": "Raum-Verlegung",
-        "ADDITIONAL": "Zusätzlicher Unterricht"
-    },
-    "general": {
-        "translated_lesson": "Stunde"
-    },
-    "weekdays": ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"]
+	"language-handler.js": {
+		"no_message_found": "Es ist etwas schief gelaufen. \n Versuche es später erneut :)"
+	},
+	"whatsapp.js": {
+		"unknown_command": "Dieser Befehl gibt es nicht. \nIn meiner WhatsApp-Beschreibung findest du alle Befehle"
+	},
+	"config.js": {
+		"no_class_provided": "Du musst den Namen der Klasse angeben \n > !config <KlassenName> \n\nBei Fragen schreib mich privat an (Nummer ist in der Beschreibung)",
+		"class_not_found": "Ich habe keine Klasse mit diesem Namen gefunden! \nHinweis: Achte auf die 0 vor dem Namen (z.B. 09b)",
+		"successful_config_change": "Fertig! Konfigurationen: ${outputData}",
+		"no_config_found": "Es wurde keine Konfiguration für diesen Chat gefunden",
+		"current_config": "Aktuelle Konfiguration:\n${output}",
+		"wrong_usage": "Unbekannter Befehl! \n > !config <set|check>"
+	},
+	"ping.js": {
+		"pong_message": "Pong!"
+	},
+	"room.js": {
+		"no_room_provided": "Du musst einen Raum-Namen angeben \nBeispiel: ${args0} 208",
+		"room_doesnt_exist": "Dieser Raum existiert nicht. Versuche es vielleicht mit einem anderen Begriff für den Raum",
+		"currently_no_class": "Aktuell ist doch gar kein Unterricht!\n\nDu kannst auch andere Stunden abfragen. Beispiel: \n`${args0} ${args1} stunde:1`",
+		"no_class_in_room": "Aktuell ist in diesem Raum kein Unterricht!",
+		"output_message": "Unterricht in Raum *${roomName}* in der ${currentLesson}. Stunde:\n- ${parsedSubject}\n- ${parsedTeacher} ${translatedCellstate}${additionalLessonCheck} ${requestedLessonCheck}",
+		"lesson_parameter": "stunde",
+		"subject_unknown": "Fach nicht bekannt",
+		"output_footer": "\n\nDu kannst auch andere Stunden abfragen. Beispiel: \n`${args0} ${args1} stunde:1`"
+	},
+	"teacher.js": {
+		"no_teacher_provided": "Du musst einen Lehrer angeben \nBeispiel: ${args0} May",
+		"teacher_not_found": "Keinen Lehrer gefunden! Bist du sicher, dass du den Namen richtig geschrieben hast?",
+		"lesson_parameter": "stunde",
+		"invalid_lesson": "Ungültige Stunde! \nVerwende beispielsweise `stunde:1`",
+		"currently_no_lesson": "Aktuell ist kein Unterricht! \n\nDu kannst auch andere Stunden abfragen. Beispiel: \n`${args0} ${args1} stunde:1`",
+		"teacher_no_lesson": "kein Unterricht",
+		"lesson_canceled": "Unterricht entfällt",
+		"lesson_is_substituted": "Unterricht wird vertreten",
+		"subject_unknown": "Fach nicht bekannt",
+		"room_unknown:": "Raum nicht bekannt",
+		"output_header": "Lehrer ${currentLesson}. Stunde:\n\n",
+		"output_footer": "\n\nDu kannst auch andere Stunden abfragen. Beispiel: \n`${args0} ${args1} stunde:1`"
+	},
+	"checkUntisUpdates.js": {
+		"lessons_omitted": "Der Unterricht entfällt!"
+	},
+	"answerThanks.js": {
+		"trigger": "danke",
+		"reply": "🤖📣 Gerne Gerne"
+	},
+	"cellstate_translation": {
+		"STANDARD": "Normal",
+		"CANCEL": "Entfall",
+		"FREE": "Frei",
+		"SUBSTITUTION": "Vertretung",
+		"ROOMSUBSTITUTION": "Raum-Verlegung",
+		"ADDITIONAL": "Zusätzlicher Unterricht"
+	},
+	"general": {
+		"translated_lesson": "Stunde"
+	},
+	"weekdays": [
+		"Montag",
+		"Dienstag",
+		"Mittwoch",
+		"Donnerstag",
+		"Freitag",
+		"Samstag",
+		"Sonntag"
+	]
 }
