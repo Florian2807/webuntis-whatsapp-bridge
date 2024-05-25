@@ -6,17 +6,17 @@ module.exports = {
     triggers: ['eval'],
     needTeacherAccess: false,
     callback: async ({ msg, args, defaultArgs }) => {
-        if (msg.from !== process.env.whatsapp_admin_userID) return
+        if (!process.env.whatsapp_admins.includes(msg.from)) return
         try {
-        const message = defaultArgs
-            .splice(1, 1)
-            .join(' ')
-        let result = await eval(`(async () => {${message}})()`)
-        if (typeof result !== 'undefined') {
-            return String(result)
-        } else {
-            return null
-        }
+            defaultArgs.shift()
+            const message = defaultArgs
+                .join(' ')
+            let result = await eval(`(async () => {${message}})()`)
+            if (typeof result !== 'undefined') {
+                return String(result)
+            } else {
+                return null
+            }
         } catch (e) {
             return `Error: ${e}`
         }
