@@ -2,6 +2,7 @@
 /token
 /.wwebjs_cache
 package-lock.json
+.vscode/
 
 data/*
 
