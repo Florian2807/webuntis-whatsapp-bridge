@@ -3,13 +3,13 @@ module.exports = {
 	commandName: 'config',
 	triggers: ['config', 'configure'],
 	needTeacherAccess: false,
-	callback: async ({ msg, args, defaultArgs }) => {
-		switch (args[1]) {
+	callback: async ({ msg, args }) => {
+		switch (args[1].toLowerCase()) {
 			case 'set': {
 				const whatsapp_group = await msg.getChat();
 				const whatsapp_groupID = whatsapp_group.id['_serialized'];
 				const allClasses = await wb.Webuntis.getClasses();
-				const class_name = defaultArgs[2];
+				const class_name = args[2];
 				const whatsapp_debug_groupID = process.env['DEBUG_WHATSAPP_ID'];
 				const foundClass = allClasses.find(i => i.name?.toLowerCase() === class_name?.toLowerCase());
 

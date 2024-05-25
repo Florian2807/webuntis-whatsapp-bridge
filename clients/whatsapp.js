@@ -37,11 +37,10 @@ async function handleCommand(msg) {
 	});
 	if (!command) return await msg.reply(wb.Lang.handle(__filename, 'unknown_command'));
 
-	const args = msg.body?.toLowerCase().split(' ');
-	const defaultArgs = msg.body?.split(' ');
+	const args = msg.body?.split(' ');
 
 	try {
-		const reply = await command.callback({ msg, args, defaultArgs });
+		const reply = await command.callback({ msg, args });
 		if (reply) {
 			await msg.reply(reply);
 		}
@@ -51,8 +50,7 @@ async function handleCommand(msg) {
 }
 
 async function handleModule(msg) {
-	const args = msg.body?.toLowerCase().split(' ');
-	const defaultArgs = msg.body?.split(' ');
+	const args = msg.body?.split(' ');
 
 	Array.from(wb.Modules.values()).some(module => {
 		const check = {
@@ -61,7 +59,7 @@ async function handleModule(msg) {
 			excludedUser: !module.excludedUser.includes(msg.from),
 		};
 		if (Object.values(check).every(i => i)) {
-			return module.callback({ msg, args, defaultArgs });
+			return module.callback({ msg, args });
 		}
 	});
 }

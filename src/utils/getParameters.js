@@ -2,6 +2,7 @@ module.exports = (args, definition, parseRes) => {
 	let foundArgument = args.find(i => {
 		return i.startsWith(`${definition}:`);
 	});
+	if (!foundArgument) return undefined
 
 	let parameter = foundArgument?.replace(`${definition}:`, '');
 	args.splice(args.indexOf(foundArgument), 1);

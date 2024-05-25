@@ -4,16 +4,16 @@ module.exports = {
 	commandName: 'teacher',
 	triggers: ['teacher', 'lehrer'],
 	needTeacherAccess: true,
-	callback: async ({ args, defaultArgs }) => {
+	callback: async ({ args }) => {
 		if (!args[1])
 			return wb.Lang.handle(__filename, 'no_teacher_provided', {
-				args0: defaultArgs[0],
+				args0: args[0],
 			});
 		const allTeachers = await wb.Webuntis.getTeachers();
 		const foundTeachers = allTeachers
 			.filter(
 				t =>
-					t.longName.toLowerCase().includes(args[1]) || t.name.toLowerCase().includes(args[1]) || t.foreName.toLowerCase().includes(args[1])
+					t.longName.toLowerCase().includes(args[1].toLowerCase()) || t.name.toLowerCase().includes(args[1].toLowerCase()) || t.foreName.toLowerCase().includes(args[1].toLowerCase())
 			)
 			.map(t => {
 				return {
@@ -33,8 +33,8 @@ module.exports = {
 		const currentLesson = wb.Utils.getCurrentLesson(requestedLesson);
 		if (!currentLesson) {
 			return wb.Lang.handle(__filename, 'currently_no_lesson', {
-				args0: defaultArgs[0],
-				args1: defaultArgs[1],
+				args0: args[0],
+				args1: args[1],
 			});
 		}
 		let teacherInfos = [];
@@ -51,7 +51,7 @@ module.exports = {
 
 			if (!data) {
 				await wb.Webuntis.login();
-				this.callback({ args, defaultArgs });
+				this.callback({ args });
 			}
 
 			const searchLesson = data?.result?.data?.['elementPeriods']?.[teacher.id]?.find(
@@ -109,8 +109,8 @@ module.exports = {
 			(requestedLesson
 				? ''
 				: wb.Lang.handle(__filename, 'output_footer', {
-						args0: defaultArgs[0],
-						args1: defaultArgs[1],
+						args0: args[0],
+						args1: args[1],
 					}))
 		);
 	},

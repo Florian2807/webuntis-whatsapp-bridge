@@ -6,7 +6,7 @@ module.exports = {
 	commandName: 'room',
 	triggers: ['room', 'raum'],
 	needTeacherAccess: true,
-	callback: async ({ args, defaultArgs }) => {
+	callback: async ({ args }) => {
 		if (!args[1])
 			return wb.Lang.handle(__filename, 'no_room_provided', {
 				args0: args[0],
@@ -38,8 +38,8 @@ module.exports = {
 		const currentLesson = wb.Utils.getCurrentLesson(requestedLesson);
 		if (!currentLesson)
 			return wb.Lang.handle(__filename, 'currently_no_class', {
-				args0: defaultArgs[0],
-				args1: defaultArgs[1],
+				args0: args[0],
+				args1: args[1],
 			});
 
 		const searchLesson = roomData?.result?.data?.['elementPeriods']?.[roomID]?.find(
@@ -69,8 +69,8 @@ module.exports = {
 		const requestedLessonCheck = requestedLesson
 			? ''
 			: wb.Lang.handle(__filename, 'output_footer', {
-					args0: defaultArgs[0],
-					args1: defaultArgs[1],
+					args0: args[0],
+					args1: args[1],
 				});
 		return wb.Lang.handle(__filename, 'output_message', {
 			roomName,
