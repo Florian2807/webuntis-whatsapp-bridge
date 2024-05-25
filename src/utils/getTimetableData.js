@@ -24,9 +24,9 @@ module.exports = async ({ classID, date }) => {
 
     const timetable = {}
     Object.values(data.result.data['elementPeriods'])[0].forEach((lesson) => {
-        const dayUnix = wb.Utils.parseUntisDate(lesson.date) / 1000
+        const day = lesson.date
 
-        if (!timetable[dayUnix]) timetable[dayUnix] = []
+        if (!timetable[day]) timetable[day] = []
 
 
         /*
@@ -42,7 +42,7 @@ module.exports = async ({ classID, date }) => {
                 ABSENT
         */
 
-        timetable[dayUnix].push(wb.Utils.parseLesson(lesson, data.result.data['elements']))
+        timetable[day].push(wb.Utils.parseLesson(lesson, data.result.data['elements']))
     })
 
     const sortedTimetable = {};

@@ -5,6 +5,7 @@ module.exports = (updates = []) => {
         const event = wb.Utils.translateCellstate(update.cellState, update.teacher.filter(t => t))
         const element = {
             weekday: weekdays[wb.Utils.parseUntisDate(update.date).getDay() - 1],
+            date: update.date,
             lesson: update.lesson,
             subject: update.subject.map(i => i.longName).join(', '),
             teacher: update.teacher.filter(t => t).map(i => i.name).join(', '),
