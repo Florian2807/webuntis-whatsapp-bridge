@@ -6,15 +6,12 @@ module.exports = () => {
 	utils();
 	cronjobs();
 	wb.Utils.createNecessaryFiles();
-	wb.changedLessons =
-		JSON.parse(fs.readFileSync('./data/changedLessons.json', 'utf8')) || {};
+	wb.changedLessons = JSON.parse(fs.readFileSync('./data/changedLessons.json', 'utf8')) || {};
 };
 
 function commands() {
 	wb.Commands = new Map();
-	const files = fs
-		.readdirSync(`./src/commands`, { recursive: true })
-		.filter(i => i.includes('.js'));
+	const files = fs.readdirSync(`./src/commands`, { recursive: true }).filter(i => i.includes('.js'));
 
 	for (const file of files) {
 		const command = require(`${__dirname}/commands/${file}`);
@@ -24,9 +21,7 @@ function commands() {
 
 function modules() {
 	wb.Modules = new Map();
-	const files = fs
-		.readdirSync('./src/modules', { recursive: true })
-		.filter(i => i.includes('.js'));
+	const files = fs.readdirSync('./src/modules', { recursive: true }).filter(i => i.includes('.js'));
 
 	for (const file of files) {
 		const module = require(`${__dirname}/modules/${file}`);

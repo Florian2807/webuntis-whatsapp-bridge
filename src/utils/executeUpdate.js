@@ -6,8 +6,5 @@ module.exports = async () => {
 		await wb.Utils.checkUntisUpdates({ classID: schoolClass.classID });
 		await wb.Utils.sleep(1000);
 	}
-	fs.writeFileSync(
-		'./data/changedLessons.json',
-		JSON.stringify(wb.changedLessons, null, 4)
-	);
+	fs.writeFileSync('./data/changedLessons.json', JSON.stringify(wb.changedLessons, null, 4));
 };

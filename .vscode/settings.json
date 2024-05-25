@@ -1,4 +1,4 @@
 {
-    "editor.formatOnSave": true,
-    "notebook.codeActionsOnSave": {}
+	"editor.formatOnSave": true,
+	"notebook.codeActionsOnSave": {}
 }

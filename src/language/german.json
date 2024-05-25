@@ -58,13 +58,5 @@
 	"general": {
 		"translated_lesson": "Stunde"
 	},
-	"weekdays": [
-		"Montag",
-		"Dienstag",
-		"Mittwoch",
-		"Donnerstag",
-		"Freitag",
-		"Samstag",
-		"Sonntag"
-	]
+	"weekdays": ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"]
 }

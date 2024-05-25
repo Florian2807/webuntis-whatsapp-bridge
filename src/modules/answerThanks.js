@@ -6,11 +6,7 @@ module.exports = {
 	description: 'answer to thanks xd',
 
 	callback: async ({ msg }) => {
-		if (
-			msg.body
-				?.toLowerCase()
-				.includes(wb.Lang.handle(__filename, 'trigger'))
-		) {
+		if (msg.body?.toLowerCase().includes(wb.Lang.handle(__filename, 'trigger'))) {
 			await msg.reply(wb.Lang.handle(__filename, 'reply'));
 		}
 	},

@@ -5,14 +5,9 @@ module.exports = (lesson, elements) => {
 	const allTeacher = elements.filter(i => i.type === 2);
 	const allSubjects = elements.filter(i => i.type === 3);
 	const allRooms = elements.filter(i => i.type === 4);
-	const notRegular = lesson?.elements.filter(
-		element => element.state !== 'REGULAR'
-	);
+	const notRegular = lesson?.elements.filter(element => element.state !== 'REGULAR');
 	return {
-		lesson:
-			wb.config['timetable']
-				.map(i => i.start.replace(/^0|:/g, ''))
-				.indexOf(JSON.stringify(lesson.startTime)) + 1,
+		lesson: wb.config['timetable'].map(i => i.start.replace(/^0|:/g, '')).indexOf(JSON.stringify(lesson.startTime)) + 1,
 		id: lesson.id,
 		date: lesson.date,
 		startTime: lesson.startTime,
@@ -21,14 +16,7 @@ module.exports = (lesson, elements) => {
 		lessonText: lesson.lessonText,
 		substText: lesson.substText,
 		notRegular: notRegular,
-		class:
-			allClasses.find(
-				i =>
-					i.id ===
-					lesson.elements.find(
-						e => e.type === 1 && e.state === 'REGULAR'
-					)?.id
-			) ?? null,
+		class: allClasses.find(i => i.id === lesson.elements.find(e => e.type === 1 && e.state === 'REGULAR')?.id) ?? null,
 		teacher:
 			allTeacher.filter(i =>
 				lesson.elements
@@ -36,9 +24,7 @@ module.exports = (lesson, elements) => {
 					.map(o => o.id)
 					.includes(i.id)
 			) ?? null,
-		oldTeacher: notRegular
-			.filter(i => i.type === 2)
-			.map(i => allTeacher.find(o => o.id === i.orgId)),
+		oldTeacher: notRegular.filter(i => i.type === 2).map(i => allTeacher.find(o => o.id === i.orgId)),
 		subject:
 			allSubjects.filter(i =>
 				lesson.elements
@@ -53,8 +39,6 @@ module.exports = (lesson, elements) => {
 					.map(o => o.id)
 					.includes(i.id)
 			) ?? null,
-		oldRoom: notRegular
-			.filter(i => i.type === 4)
-			.map(i => allRooms.find(o => o.id === i.orgId)),
+		oldRoom: notRegular.filter(i => i.type === 4).map(i => allRooms.find(o => o.id === i.orgId)),
 	};
 };

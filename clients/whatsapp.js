@@ -17,11 +17,7 @@ client.on('qr', qr => {
 });
 
 client.on('message', async msg => {
-	if (
-		process.env.NODE_ENV === 'development' &&
-		!process.env.whatsapp_admins.includes(msg.from)
-	)
-		return;
+	if (process.env.NODE_ENV === 'development' && !process.env.whatsapp_admins.includes(msg.from)) return;
 	handleCommand(msg);
 	handleModule(msg);
 });
@@ -39,8 +35,7 @@ async function handleCommand(msg) {
 			return true;
 		} else return false;
 	});
-	if (!command)
-		return await msg.reply(wb.Lang.handle(__filename, 'unknown_command'));
+	if (!command) return await msg.reply(wb.Lang.handle(__filename, 'unknown_command'));
 
 	const args = msg.body?.toLowerCase().split(' ');
 	const defaultArgs = msg.body?.split(' ');

@@ -6,9 +6,7 @@ const app = express();
 app.use(bodyParser.json());
 
 app.get('/timetable', async (req, res) => {
-	const classID = req.query['classID']
-		? JSON?.parse(req.query['classID'])
-		: 872;
+	const classID = req.query['classID'] ? JSON?.parse(req.query['classID']) : 872;
 	const date = req.query['date'] ?? new Date().toISOString().split('T')[0];
 	console.log(classID, date);
 	res.url = req.url + `?classID=${classID}&date=${date}`;
@@ -17,15 +15,11 @@ app.get('/timetable', async (req, res) => {
 });
 
 app.get('/searchteacher/:teacher', async (req, res) => {
-	const lessonNumber = req.query.lesson
-		? JSON.parse(req.query.lesson)
-		: getCurrentLesson();
+	const lessonNumber = req.query.lesson ? JSON.parse(req.query.lesson) : getCurrentLesson();
 
 	const timeplan = [750, 835, 940, 1025, 1130, 1215, 1320, 1410, 1455];
 
-	const teacher = (await wb.Webuntis.getTeachers()).filter(i =>
-		i.longName?.toLowerCase().includes(req.params.teacher?.toLowerCase())
-	);
+	const teacher = (await wb.Webuntis.getTeachers()).filter(i => i.longName?.toLowerCase().includes(req.params.teacher?.toLowerCase()));
 	const teacherIDs = teacher.map(i => i.id);
 
 	const classIDs = await (await wb.Webuntis.getClasses()).map(i => i.id);
@@ -35,10 +29,7 @@ app.get('/searchteacher/:teacher', async (req, res) => {
 		const teacherFound = [];
 		timetable.forEach(lesson => {
 			lesson['te'].forEach(teacher => {
-				if (
-					teacherIDs.includes(teacher.id) &&
-					timeplan.indexOf(lesson.startTime) + 1 === lessonNumber
-				) {
+				if (teacherIDs.includes(teacher.id) && timeplan.indexOf(lesson.startTime) + 1 === lessonNumber) {
 					teacherFound.push(lesson);
 				}
 			});
@@ -83,10 +74,7 @@ function getCurrentLesson() {
 		const aktuelleStundeEnde = stundenplan[i].ende;
 		const naechsteStundeStart = stundenplan[i + 1].start;
 
-		if (
-			aktuelleUhrzeit >= aktuelleStundeEnde &&
-			aktuelleUhrzeit < naechsteStundeStart
-		) {
+		if (aktuelleUhrzeit >= aktuelleStundeEnde && aktuelleUhrzeit < naechsteStundeStart) {
 			return stundenplan[i + 1].stunde;
 		}
 	}

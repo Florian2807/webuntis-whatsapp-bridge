@@ -7,8 +7,7 @@ module.exports = (updates = []) => {
 			update.teacher.filter(t => t)
 		);
 		const element = {
-			weekday:
-				weekdays[wb.Utils.parseUntisDate(update.date).getDay() - 1],
+			weekday: weekdays[wb.Utils.parseUntisDate(update.date).getDay() - 1],
 			date: update.date,
 			lesson: update.lesson,
 			subject: update.subject.map(i => i.longName).join(', '),

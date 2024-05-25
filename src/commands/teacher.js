@@ -13,9 +13,7 @@ module.exports = {
 		const foundTeachers = allTeachers
 			.filter(
 				t =>
-					t.longName.toLowerCase().includes(args[1]) ||
-					t.name.toLowerCase().includes(args[1]) ||
-					t.foreName.toLowerCase().includes(args[1])
+					t.longName.toLowerCase().includes(args[1]) || t.name.toLowerCase().includes(args[1]) || t.foreName.toLowerCase().includes(args[1])
 			)
 			.map(t => {
 				return {
@@ -25,21 +23,11 @@ module.exports = {
 					id: t.id,
 				};
 			});
-		if (!foundTeachers.length)
-			return wb.Lang.handle(__filename, 'teacher_not_found');
+		if (!foundTeachers.length) return wb.Lang.handle(__filename, 'teacher_not_found');
 		const todaysDate = new Date().toISOString().split('T')[0];
 
-		const requestedLesson = wb.Utils.getParameters(
-			args,
-			wb.Lang.handle(__filename, 'lesson_parameter'),
-			true
-		);
-		if (
-			requestedLesson &&
-			(typeof requestedLesson !== 'number' ||
-				requestedLesson > 9 ||
-				requestedLesson < 1)
-		)
+		const requestedLesson = wb.Utils.getParameters(args, wb.Lang.handle(__filename, 'lesson_parameter'), true);
+		if (requestedLesson && (typeof requestedLesson !== 'number' || requestedLesson > 9 || requestedLesson < 1))
 			return wb.Lang.handle(__filename, 'invalid_lesson');
 
 		const currentLesson = wb.Utils.getCurrentLesson(requestedLesson);
@@ -66,18 +54,11 @@ module.exports = {
 				this.callback({ args, defaultArgs });
 			}
 
-			const searchLesson = data?.result?.data?.['elementPeriods']?.[
-				teacher.id
-			]?.find(
+			const searchLesson = data?.result?.data?.['elementPeriods']?.[teacher.id]?.find(
 				lesson =>
-					lesson?.date === parseInt(todaysDate.replaceAll('-', '')) &&
-					lesson?.startTime ===
-						parseInt(currentLesson?.start.replace(':', ''))
+					lesson?.date === parseInt(todaysDate.replaceAll('-', '')) && lesson?.startTime === parseInt(currentLesson?.start.replace(':', ''))
 			);
-			const parsedLesson = wb.Utils.parseLesson(
-				searchLesson,
-				data?.result?.data?.['elements']
-			);
+			const parsedLesson = wb.Utils.parseLesson(searchLesson, data?.result?.data?.['elements']);
 
 			const name = `${teacher.forename.split('')[0]}. ${teacher.name}`;
 
@@ -90,9 +71,7 @@ module.exports = {
 			}
 		}
 
-		const messageData = wb.Utils.getUpdateMessageData(
-			teacherInfos.map(i => i.lesson)
-		);
+		const messageData = wb.Utils.getUpdateMessageData(teacherInfos.map(i => i.lesson));
 
 		messageData.forEach(data => {
 			const index = messageData.indexOf(data);
@@ -110,16 +89,12 @@ module.exports = {
 		let outputMessage = '';
 		for (const data of teacherInfos) {
 			const teacherVar =
-				data.messageData.event.cellstate ===
-					wb.Lang.dict['cellstate_translation']['CANCEL'] &&
-				data.messageData.oldTeacher
+				data.messageData.event.cellstate === wb.Lang.dict['cellstate_translation']['CANCEL'] && data.messageData.oldTeacher
 					? `_${wb.Lang.handle(__filename, 'lesson_canceled')}_\n`
 					: data.messageData.oldTeacher === data.teacher.short
 						? `_${wb.Lang.handle(__filename, 'lesson_is_substituted')}_\n`
 						: `_${data.messageData.event.translated}_\n`;
-			const roomVar = data.messageData.oldRoom
-				? `~${data.messageData.oldRoom}~ -> ${data.messageData.room}`
-				: data.messageData.room;
+			const roomVar = data.messageData.oldRoom ? `~${data.messageData.oldRoom}~ -> ${data.messageData.room}` : data.messageData.room;
 
 			const content = `*${data.name}*\n${data.messageData.message ? `- ${data.message}\n` : `${teacherVar}- ${roomVar} \n- ${data.messageData.subject}`}\n`;
 

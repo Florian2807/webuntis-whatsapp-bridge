@@ -8,10 +8,7 @@ module.exports = (filepath, description, variables) => {
 	}
 
 	for (const key in variables) {
-		message = message.replace(
-			new RegExp('\\${' + key + '}', 'g'),
-			variables[key]
-		);
+		message = message.replace(new RegExp('\\${' + key + '}', 'g'), variables[key]);
 	}
 	return message;
 };

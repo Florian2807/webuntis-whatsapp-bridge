@@ -1,21 +1,18 @@
 const got = require('got');
 
 module.exports = async ({ classID, date }) => {
-	const body = await got(
-		`https://${process.env['untis_baseurl']}/WebUntis/api/public/timetable/weekly/data`,
-		{
-			searchParams: {
-				elementType: 1,
-				elementId: classID,
-				date: date,
-				formatId: 1,
-			},
-			headers: {
-				Cookie: wb.Webuntis._buildCookies(),
-			},
-			throwHttpErrors: false,
-		}
-	).json();
+	const body = await got(`https://${process.env['untis_baseurl']}/WebUntis/api/public/timetable/weekly/data`, {
+		searchParams: {
+			elementType: 1,
+			elementId: classID,
+			date: date,
+			formatId: 1,
+		},
+		headers: {
+			Cookie: wb.Webuntis._buildCookies(),
+		},
+		throwHttpErrors: false,
+	}).json();
 
 	if (body.code === 401) {
 		console.warn('Service currently unavailable');
@@ -47,9 +44,7 @@ module.exports = async ({ classID, date }) => {
                 ABSENT
         */
 
-		timetable[day].push(
-			wb.Utils.parseLesson(lesson, data.result.data['elements'])
-		);
+		timetable[day].push(wb.Utils.parseLesson(lesson, data.result.data['elements']));
 	});
 
 	const sortedTimetable = {};
