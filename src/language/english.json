@@ -40,6 +40,9 @@
         "output_header": "Teacher ${currentLesson}. lesson:\n\n",
         "output_footer": "\n\nYou can also query other lessons. Example: \n`${args0} ${args1} lesson:1`"
     },
+    "checkUntisUpdates.js": {
+        "lessons_omitted": "Lessons are omitted!"
+    },
     "answerThanks.js": {
         "trigger": "thanks",
         "reply": "🤖📣 You're welcome"
