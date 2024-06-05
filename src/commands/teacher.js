@@ -96,7 +96,7 @@ module.exports = {
 						: `_${data.messageData.event.translated}_\n`;
 			const roomVar = data.messageData.oldRoom ? `~${data.messageData.oldRoom}~ -> ${data.messageData.room}` : data.messageData.room;
 
-			const content = `*${data.name}*\n${data.messageData.message ? `- ${data.message}\n` : `${teacherVar}- ${roomVar} \n- ${data.messageData.subject}`}\n`;
+			const content = `\n*${data.name}*\n${data.messageData.message ? `- ${data.message}\n` : `${teacherVar}- ${roomVar} \n- ${data.messageData.subject}`}\n`;
 
 			outputMessage += content;
 		}

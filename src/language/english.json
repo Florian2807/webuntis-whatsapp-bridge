@@ -37,7 +37,7 @@
 		"lesson_is_substituted": "Lesson is substituted",
 		"subject_unknown": "Subject unknown",
 		"room_unknown:": "Room unknown",
-		"output_header": "Teacher ${currentLesson}. lesson:\n\n",
+		"output_header": "Teacher ${currentLesson}. lesson:\n",
 		"output_footer": "\n\nYou can also query other lessons. Example: \n`${args0} ${args1} lesson:1`"
 	},
 	"checkUntisUpdates.js": {

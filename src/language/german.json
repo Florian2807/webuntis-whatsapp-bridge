@@ -37,7 +37,7 @@
 		"lesson_is_substituted": "Unterricht wird vertreten",
 		"subject_unknown": "Fach nicht bekannt",
 		"room_unknown:": "Raum nicht bekannt",
-		"output_header": "Lehrer ${currentLesson}. Stunde:\n\n",
+		"output_header": "Lehrer ${currentLesson}. Stunde:\n",
 		"output_footer": "\n\nDu kannst auch andere Stunden abfragen. Beispiel: \n`${args0} ${args1} stunde:1`"
 	},
 	"checkUntisUpdates.js": {
