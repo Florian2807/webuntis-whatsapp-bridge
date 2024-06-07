@@ -40,7 +40,7 @@ function getRightEmoji(cellState) {
 		FREE: '🔴',
 		SUBSTITUTION: '🟠',
 		ROOMSUBSTITUTION: '🟠',
-		ADDITONAL: '🟠',
+		ADDITIONAL: '🟠',
 	};
 	return list[cellState];
 }
