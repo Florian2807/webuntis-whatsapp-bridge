@@ -1,6 +1,6 @@
 module.exports = (args, definition, parseRes) => {
 	let foundArgument = args.find(i => {
-		return i.startsWith(`${definition}:`);
+		return i.toLowerCase().startsWith(`${definition.toLowerCase()}:`);
 	});
 	if (!foundArgument) return undefined
 
