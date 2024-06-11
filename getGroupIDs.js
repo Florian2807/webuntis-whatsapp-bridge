@@ -11,7 +11,7 @@ if (process.env.chrome_path) {
 	};
 }
 
-const client = new Client(clientConfig);
+const client = new Client(conf);
 
 client.on('qr', qr => {
 	qrcode.generate(qr, { small: true });
