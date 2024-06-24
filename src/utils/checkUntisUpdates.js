@@ -12,10 +12,10 @@ module.exports = async ({ classID }) => {
 	if (!timetable) return;
 	const allLessons = [];
 	const currentDate = new Date(),
-		firstDayOfWeek = new Date(currentDate.setDate(currentDate.getDate() - currentDate.getDay())) / 1000,
+		firstDayOfWeek = new Date(currentDate.setDate(currentDate.getDate() - currentDate.getDay())),
 		lessonsPerDay = {};
 
-	const filteredSavedLessons = [...wb.changedLessons[classID]]?.filter(lesson => firstDayOfWeek < wb.Utils.parseUntisDate(lesson.date) / 1000);
+	const filteredSavedLessons = [...wb.changedLessons[classID]]?.filter(lesson => firstDayOfWeek / 1000 < wb.Utils.parseUntisDate(lesson.date) / 1000);
 	Object.keys(timetable).forEach(day => {
 		timetable[day].forEach(lesson => {
 			allLessons.push(lesson);
@@ -40,7 +40,7 @@ module.exports = async ({ classID }) => {
 		const freeDays = Object.keys(lessonsPerDay).filter(key => lessonsPerDay[key] === 0);
 		freeDays.forEach(freeDay => {
 			const parsedDay = wb.Utils.parseUntisDate(freeDay);
-			const content = `❌ *${wb.Lang.dict.weekdays[parsedDay.getDay()]} ${parsedDay.toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit', year: '2-digit' })}* ❌ \n- ${wb.Lang.handle(__filename, 'lessons_omitted')}`;
+			const content = `❌ *${wb.Lang.dict.weekdays[parsedDay.getDay() - 1]} ${parsedDay.toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit', year: '2-digit' })}* ❌ \n- ${wb.Lang.handle(__filename, 'lessons_omitted')}`;
 			wb.Whatsapp.sendMessage(wb.config.classes.find(i => i['classID'] === classID)['whatsapp_groupID'], content);
 		});
 		console.log(new Date().toLocaleTimeString('de') + ' Timetable changed');
