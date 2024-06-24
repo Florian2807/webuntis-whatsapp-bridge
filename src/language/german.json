@@ -41,7 +41,7 @@
 		"output_footer": "\n\nDu kannst auch andere Stunden abfragen. Beispiel: \n`${args0} ${args1} stunde:1`"
 	},
 	"checkUntisUpdates.js": {
-		"lessons_omitted": "Der Unterricht entfällt!"
+		"lessons_omitted": "Kein regulärer Unterricht!"
 	},
 	"answerThanks.js": {
 		"trigger": "danke",
