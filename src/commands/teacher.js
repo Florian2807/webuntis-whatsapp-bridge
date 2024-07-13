@@ -26,7 +26,7 @@ module.exports = {
 				};
 			});
 
-		const requestedLesson = wb.Utils.getParameters(args, wb.Lang.handle(__filename, 'lesson_parameter'), true);
+		const requestedLesson = wb.Utils.getParameters(args.map(i => i.toLowerCase()), wb.Lang.handle(__filename, 'lesson_parameter'), true);
 		if (requestedLesson && (typeof requestedLesson !== 'number' || requestedLesson > 9 || requestedLesson < 1))
 			return wb.Lang.handle(__filename, 'invalid_lesson');
 

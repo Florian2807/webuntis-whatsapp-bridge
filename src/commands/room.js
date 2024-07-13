@@ -33,7 +33,7 @@ module.exports = {
 			}
 		).json();
 
-		const requestedLesson = wb.Utils.getParameters(args, wb.Lang.handle(__filename, 'lesson_parameter'), true);
+		const requestedLesson = wb.Utils.getParameters(args.map(i => i.toLowerCase(), wb.Lang.handle(__filename, 'lesson_parameter'), true);
 
 		const currentLesson = wb.Utils.getCurrentLesson(requestedLesson);
 		if (!currentLesson)
