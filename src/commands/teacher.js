@@ -13,7 +13,9 @@ module.exports = {
 		const foundTeachers = allTeachers
 			.filter(
 				t =>
-					t.longName.toLowerCase().includes(args[1].toLowerCase()) || t.name.toLowerCase().includes(args[1].toLowerCase()) || t.foreName.toLowerCase().includes(args[1].toLowerCase())
+					t.longName.toLowerCase().includes(args[1].toLowerCase()) ||
+					t.name.toLowerCase().includes(args[1].toLowerCase()) ||
+					t.foreName.toLowerCase().includes(args[1].toLowerCase())
 			)
 			.map(t => {
 				return {
@@ -23,12 +25,21 @@ module.exports = {
 					id: t.id,
 				};
 			});
-		if (!foundTeachers.length) return wb.Lang.handle(__filename, 'teacher_not_found');
-		const todaysDate = new Date().toISOString().split('T')[0];
 
 		const requestedLesson = wb.Utils.getParameters(args, wb.Lang.handle(__filename, 'lesson_parameter'), true);
 		if (requestedLesson && (typeof requestedLesson !== 'number' || requestedLesson > 9 || requestedLesson < 1))
 			return wb.Lang.handle(__filename, 'invalid_lesson');
+
+		if (!foundTeachers.length) {
+			if (args.join(' ').includes('.') || args.length() > 2) {
+				return wb.Lang.handle(__filename, 'request_includes_dot', {
+					args0: args[0],
+					args1: args[1],
+				});
+			}
+			return wb.Lang.handle(__filename, 'teacher_not_found');
+		}
+		const todaysDate = new Date().toISOString().split('T')[0];
 
 		const currentLesson = wb.Utils.getCurrentLesson(requestedLesson);
 		if (!currentLesson) {
@@ -68,10 +79,17 @@ module.exports = {
 					teacher: teacher,
 					lesson: parsedLesson,
 				});
+			} else {
+				teacherInfos.push({
+					name: name,
+					teacher: teacher,
+					messageData: {
+						message: wb.Lang.handle(__filename, 'teacher_no_lesson'),
+					},
+				});
 			}
 		}
-
-		const messageData = wb.Utils.getUpdateMessageData(teacherInfos.map(i => i.lesson));
+		const messageData = wb.Utils.getUpdateMessageData(teacherInfos.filter(i => !i.messageData?.message).map(i => i.lesson));
 
 		messageData.forEach(data => {
 			const index = messageData.indexOf(data);
@@ -88,15 +106,15 @@ module.exports = {
 		// })
 		let outputMessage = '';
 		for (const data of teacherInfos) {
+			console.log(data)
 			const teacherVar =
-				data.messageData.event.cellstate === wb.Lang.dict['cellstate_translation']['CANCEL'] && data.messageData.oldTeacher
+				data.messageData?.event?.cellstate === wb.Lang.dict['cellstate_translation']['CANCEL'] && data.messageData?.oldTeacher
 					? `_${wb.Lang.handle(__filename, 'lesson_canceled')}_\n`
-					: data.messageData.oldTeacher === data.teacher.short
+					: data.messageData?.oldTeacher === data.teacher?.short
 						? `_${wb.Lang.handle(__filename, 'lesson_is_substituted')}_\n`
-						: `_${data.messageData.event.translated}_\n`;
-			const roomVar = data.messageData.oldRoom ? `~${data.messageData.oldRoom}~ -> ${data.messageData.room}` : data.messageData.room;
-
-			const content = `\n*${data.name}*\n${data.messageData.message ? `- ${data.message}\n` : `${teacherVar}- ${roomVar} \n- ${data.messageData.subject}`}\n`;
+						: `_${data.messageData?.event?.translated}_\n`;
+			const roomVar = data.messageData?.oldRoom ? `~${data.messageData?.oldRoom}~ -> ${data.messageData?.room}` : data.messageData?.room;
+			const content = `\n*${data.name}*\n${data.messageData?.message ? `- ${data.messageData.message}\n` : `${teacherVar}- ${roomVar} \n- ${data.messageData?.subject}`}\n`;
 
 			outputMessage += content;
 		}

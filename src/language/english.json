@@ -27,8 +27,9 @@
 		"output_footer": "\n\nYou can also query other lessons. Example: \n`${args0} ${args1} lesson:1`"
 	},
 	"teacher.js": {
-		"no_teacher_provided": "You must provide a teacher \nExample: ${args0} May",
+		"no_teacher_provided": "You must provide a teacher \nExample: `${args0} May`",
 		"teacher_not_found": "No teacher found! Are you sure you spelled the name correctly?",
+		"request_includes_dot": "Please enter only the teacher's last name. \nExample: `${rgs0} May`",
 		"lesson_parameter": "lesson",
 		"invalid_lesson": "Invalid lesson! \nFor example, use `lesson:1`",
 		"currently_no_lesson": "Currently, there is no lesson! \n\nYou can also query other lessons. Example: \n`${args0} ${args1} lesson:1`",

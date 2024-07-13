@@ -27,8 +27,9 @@
 		"output_footer": "\n\nDu kannst auch andere Stunden abfragen. Beispiel: \n`${args0} ${args1} stunde:1`"
 	},
 	"teacher.js": {
-		"no_teacher_provided": "Du musst einen Lehrer angeben \nBeispiel: ${args0} May",
+		"no_teacher_provided": "Du musst einen Lehrer angeben \nBeispiel: `${args0} May`",
 		"teacher_not_found": "Keinen Lehrer gefunden! Bist du sicher, dass du den Namen richtig geschrieben hast?",
+		"request_includes_dot": "Bitte gib nur den Nachnamen des Lehrers an. \nBeispiel: `${args0} May`",
 		"lesson_parameter": "stunde",
 		"invalid_lesson": "Ungültige Stunde! \nVerwende beispielsweise `stunde:1`",
 		"currently_no_lesson": "Aktuell ist kein Unterricht! \n\nDu kannst auch andere Stunden abfragen. Beispiel: \n`${args0} ${args1} stunde:1`",
