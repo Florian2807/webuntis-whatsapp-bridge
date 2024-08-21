@@ -28,14 +28,12 @@ module.exports = async ({ classID }) => {
             // check existing changes for changes
             const existingLesson = existingChanges.find(i => i.id === lesson.id);
             if (existingLesson) {
-                console.log(existingLesson)
                 if (lesson.cellState !== existingLesson.cellState) {
                     lesson.isUpdate = true;
                     existingChanges.splice(existingChanges.indexOf(existingLesson), 1);
                     newChanges.push(lesson);
                 }
             } else {
-                console.log(lesson.cellState)
                 if (lesson.cellState !== 'STANDARD') {
                     lesson.isUpdate = false
                     newChanges.push(lesson);
