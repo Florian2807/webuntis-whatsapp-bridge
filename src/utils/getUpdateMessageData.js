@@ -27,6 +27,7 @@ module.exports = (updates = []) => {
 				.join(', '),
 			message: update.substText.length ? `- ${update.substText}` : '',
 			emoji: getRightEmoji(event.cellstate),
+			isUpdate: update.isUpdate,
 		};
 		output.push(element);
 	});

@@ -57,6 +57,7 @@
 		"ADDITIONAL": "Additional Lesson"
 	},
 	"general": {
+		"update": "UPDATE",
 		"translated_lesson": "Lesson"
 	},
 	"weekdays": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
