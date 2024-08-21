@@ -25,7 +25,7 @@ module.exports = async ({ classID }) => {
         const dayLessons = timetable[day];
         dayLessons.forEach(lesson => {
 
-            // check exsting changes for changes
+            // check existing changes for changes
             const existingLesson = existingChanges.find(i => i.id === lesson.id);
             if (existingLesson) {
                 console.log(existingLesson)
