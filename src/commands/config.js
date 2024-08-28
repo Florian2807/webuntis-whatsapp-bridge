@@ -2,6 +2,7 @@ const fs = require('fs');
 module.exports = {
 	commandName: 'config',
 	triggers: ['config', 'configure'],
+	onlyPermittedUser: false,
 	needTeacherAccess: false,
 	callback: async ({ msg, args }) => {
 		switch (args[1].toLowerCase()) {

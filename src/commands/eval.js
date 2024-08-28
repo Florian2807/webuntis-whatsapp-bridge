@@ -5,6 +5,7 @@ module.exports = {
 	commandName: 'eval',
 	triggers: ['eval'],
 	needTeacherAccess: false,
+	onlyPermittedUser: true,
 	callback: async ({ msg, args }) => {
 		if (!process.env.whatsapp_admins.includes(msg.from)) return;
 		try {

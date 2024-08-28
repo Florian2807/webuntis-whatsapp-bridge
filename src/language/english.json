@@ -3,7 +3,8 @@
 		"no_message_found": "Something went wrong. \nTry again later :)"
 	},
 	"whatsapp.js": {
-		"unknown_command": "This command does not exist. \nYou can find all commands in my WhatsApp description"
+		"unknown_command": "This command does not exist. \nYou can find all commands in my WhatsApp description",
+		"no_command_permission": "Unfortunately, you do not have permission to use this command"
 	},
 	"config.js": {
 		"no_class_provided": "You must provide the class name \n > !config <ClassName> \n\nIf you have any questions, message me privately (number is in the description)",
@@ -40,6 +41,9 @@
 		"room_unknown:": "Room unknown",
 		"output_header": "Teacher ${currentLesson}. lesson:\n",
 		"output_footer": "\n\nYou can also query other lessons. Example: \n`${args0} ${args1} lesson:1`"
+	},
+	"help.js": {
+		"output_message": "Here are all the commands I understand:\n\n${outputData}"
 	},
 	"checkUntisUpdates.js": {
 		"lessons_omitted": "No regular classes!"

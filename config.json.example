@@ -14,7 +14,8 @@
         {
             "class_name": "Q1",
             "classID": "872",
-            "whatsapp_groupID": "123456789123456789@g.us"
+            "whatsapp_groupID": "123456789123456789@g.us",
+            "hasCommandPermission": true
         }
     ]
 }

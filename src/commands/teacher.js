@@ -3,6 +3,7 @@ const got = require('got');
 module.exports = {
 	commandName: 'teacher',
 	triggers: ['teacher', 'lehrer'],
+	onlyPermittedUser: true,
 	needTeacherAccess: true,
 	callback: async ({ args }) => {
 		if (!args[1])

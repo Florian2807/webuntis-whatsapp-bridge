@@ -39,6 +39,8 @@ async function handleCommand(msg) {
 
 	const args = msg.body?.split(' ');
 
+	if (!checkPermission(msg, command)) return await msg.reply(wb.Lang.handle(__filename, 'no_command_permission')); 
+
 	try {
 		const reply = await command.callback({ msg, args });
 		if (reply) {
@@ -48,6 +50,7 @@ async function handleCommand(msg) {
 		console.error(e);
 	}
 }
+
 
 async function handleModule(msg) {
 	const args = msg.body?.split(' ');
@@ -62,6 +65,17 @@ async function handleModule(msg) {
 			return module.callback({ msg, args });
 		}
 	});
+}
+
+async function checkPermission(msg, command) {
+	const allGroups = await (await wb.Whatsapp.getChats()).filter(chat => chat.isGroup);
+	const acceptedGroups = wb.config.classes.filter(c => c.hasCommandPermission).map(c => c.whatsapp_groupID);
+	const allGroupParticipants = [];
+	allGroups.filter(i=> acceptedGroups.includes(i.id._serialized)).forEach(group => {
+		allGroupParticipants.push(...group.participants.filter(i => i.id.server === 'c.us').map(participant => participant.id._serialized));	
+	})
+	const hasCommandPermission = allGroupParticipants.includes(msg.from);
+	return !(command.onlyPermittedUser && !hasCommandPermission) // true => has permission
 }
 
 module.exports = client;

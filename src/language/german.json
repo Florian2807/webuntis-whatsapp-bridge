@@ -3,7 +3,8 @@
 		"no_message_found": "Es ist etwas schief gelaufen. \n Versuche es später erneut :)"
 	},
 	"whatsapp.js": {
-		"unknown_command": "Dieser Befehl gibt es nicht. \nIn meiner WhatsApp-Beschreibung findest du alle Befehle"
+		"unknown_command": "Dieser Befehl gibt es nicht. \nIn meiner WhatsApp-Beschreibung findest du alle Befehle",
+		"no_command_permission": "Du hast leider keine Berechtigung, diesen Befehl zu verwenden"
 	},
 	"config.js": {
 		"no_class_provided": "Du musst den Namen der Klasse angeben \n > !config <KlassenName> \n\nBei Fragen schreib mich privat an (Nummer ist in der Beschreibung)",
@@ -40,6 +41,9 @@
 		"room_unknown:": "Raum nicht bekannt",
 		"output_header": "Lehrer ${currentLesson}. Stunde:\n",
 		"output_footer": "\n\nDu kannst auch andere Stunden abfragen. Beispiel: \n`${args0} ${args1} stunde:1`"
+	},
+	"help.js": {
+		"output_message": "Hier sind alle Befehle, die ich verstehe:\n\n${outputData}"
 	},
 	"checkUntisUpdates.js": {
 		"lessons_omitted": "Kein regulärer Unterricht!"
