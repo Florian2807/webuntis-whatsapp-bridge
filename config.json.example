@@ -17,5 +17,6 @@
             "whatsapp_groupID": "123456789123456789@g.us",
             "hasCommandPermission": true
         }
-    ]
+    ],
+    "helpURL": "https://help.url"
 }
