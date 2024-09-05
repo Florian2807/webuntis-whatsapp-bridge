@@ -38,8 +38,7 @@ async function handleCommand(msg) {
 	if (!command) return await msg.reply(wb.Lang.handle(__filename, 'unknown_command'));
 
 	const args = msg.body?.split(' ');
-
-	if (!checkPermission(msg, command)) return await msg.reply(wb.Lang.handle(__filename, 'no_command_permission')); 
+	if (!await checkPermission({fromUser: msg.from, command})) return await msg.reply(wb.Lang.handle(__filename, 'no_command_permission')); 
 
 	try {
 		const reply = await command.callback({ msg, args });
@@ -67,14 +66,14 @@ async function handleModule(msg) {
 	});
 }
 
-async function checkPermission(msg, command) {
+async function checkPermission({fromUser, command}) {
 	const allGroups = await (await wb.Whatsapp.getChats()).filter(chat => chat.isGroup);
 	const acceptedGroups = wb.config.classes.filter(c => c.hasCommandPermission).map(c => c.whatsapp_groupID);
 	const allGroupParticipants = [];
 	allGroups.filter(i=> acceptedGroups.includes(i.id._serialized)).forEach(group => {
 		allGroupParticipants.push(...group.participants.filter(i => i.id.server === 'c.us').map(participant => participant.id._serialized));	
 	})
-	const hasCommandPermission = allGroupParticipants.includes(msg.from);
+	const hasCommandPermission = allGroupParticipants.includes(fromUser);
 	return !(command.onlyPermittedUser && !hasCommandPermission) // true => has permission
 }
 

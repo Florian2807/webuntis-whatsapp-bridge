@@ -4,7 +4,7 @@
 	},
 	"whatsapp.js": {
 		"unknown_command": "This command does not exist. \nYou can find all commands in my WhatsApp description",
-		"no_command_permission": "Unfortunately, you do not have permission to use this command"
+		"no_command_permission": "Unfortunately, you do not have permission to use this command. \nContact the administrator :)"
 	},
 	"config.js": {
 		"no_class_provided": "You must provide the class name \n > !config <ClassName> \n\nIf you have any questions, message me privately (number is in the description)",
