@@ -6,6 +6,6 @@ schedule.scheduleJob(`*/${process.env.NODE_ENV === 'development' ? '1' : '1'} 6-
 schedule.scheduleJob(`*/${process.env.NODE_ENV === 'development' ? '1' : '5'} 9-23 * * *`, () => {
 	wb.Utils.executeUpdate();
 }); // Every 5 minutes from 9 a.m. to 11 p.m.
-schedule.scheduleJob(`*/${process.env.NODE_ENV === 'development' ? '1' : '10'} 0-5 * * *`, () => {
+schedule.scheduleJob(`*/${process.env.NODE_ENV === 'development' ? '1' : '60'} 0-7 * * *`, () => {
 	wb.Utils.executeUpdate();
-}); // Every 10 minutes from 12 a.m. to 5 a.m.
+}); // Every 60 minutes from 12 a.m. to 5 a.m.
