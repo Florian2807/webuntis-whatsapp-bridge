@@ -32,7 +32,7 @@ module.exports = {
 			return wb.Lang.handle(__filename, 'invalid_lesson');
 
 		if (!foundTeachers.length) {
-			if (args.join(' ').includes('.') || args.length() > 2) {
+			if (args.join(' ').includes('.') || args.length > 2) {
 				return wb.Lang.handle(__filename, 'request_includes_dot', {
 					args0: args[0],
 					args1: args[1],
