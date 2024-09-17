@@ -107,7 +107,6 @@ module.exports = {
 		// })
 		let outputMessage = '';
 		for (const data of teacherInfos) {
-			console.log(data)
 			const teacherVar =
 				data.messageData?.event?.cellstate === wb.Lang.dict['cellstate_translation']['CANCEL'] && data.messageData?.oldTeacher
 					? `_${wb.Lang.handle(__filename, 'lesson_canceled')}_\n`
