@@ -1,9 +1,9 @@
 module.exports = async ({ classID }) => {
     if (!wb.changedLessons[classID]) wb.changedLessons[classID] = [];
 
-    let date = "2024-12-02"//new Date();
-    //date.setDate(date.getDate() + 2);
-    //date = date.toISOString().split('T')[0];
+    let date = new Date();
+    date.setDate(date.getDate() + 2);
+    date = date.toISOString().split('T')[0];
 
     const timetable = await wb.Utils.getTimetableData({
         classID,
