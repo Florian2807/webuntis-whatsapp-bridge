@@ -23,6 +23,7 @@ module.exports = async ({ classID, date }) => {
 		console.log(new Date().toLocaleTimeString('de') + JSON.stringify(body));
 		return wb.Utils.getTimetableData({ classID, date });
 	}
+	console.log('x')
 	const { data } = body;
 
 	const timetable = {};
@@ -39,6 +40,7 @@ module.exports = async ({ classID, date }) => {
                 SUBSTITUTION
                 ROOMSUBSTITUTION
                 ADDITIONAL
+				EXAM
  
             type 2:
                 ABSENT

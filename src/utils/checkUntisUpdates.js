@@ -1,9 +1,9 @@
 module.exports = async ({ classID }) => {
     if (!wb.changedLessons[classID]) wb.changedLessons[classID] = [];
 
-    let date = new Date();
-    date.setDate(date.getDate() + 2);
-    date = date.toISOString().split('T')[0];
+    let date = "2024-12-02"//new Date();
+    //date.setDate(date.getDate() + 2);
+    //date = date.toISOString().split('T')[0];
 
     const timetable = await wb.Utils.getTimetableData({
         classID,
@@ -65,14 +65,8 @@ module.exports = async ({ classID }) => {
         messageData.forEach(data => {
             if (freeDays.includes(JSON.stringify(data.date))) return;
             const isUpdate = data.isUpdate ?`_${wb.Lang.dict['general'].update}_\n` : '';
-            const teacherVar =
-                data.event.cellstate === 'CANCEL' && data.oldTeacher
-                    ? data.oldTeacher
-                    : data.oldTeacher
-                        ? `~${data.oldTeacher}~ -> ${data.teacher}`
-                        : data.teacher;
             const roomVar = data.oldRoom ? `~${data.oldRoom}~ -> ${data.room}` : data.room;
-            const content = `${isUpdate} *${data.emoji} ${data.weekday} ${data.lesson}. ${wb.Lang.dict['general']['translated_lesson']} ${data.emoji}* \n _${data.event.translated}_ \n- ${data.subject} \n- ${teacherVar} \n- ${roomVar} ${data.message ? `\n${data.message}` : ''}`;
+            const content = `${isUpdate} *${data.emoji} ${data.weekday} ${data.lesson}. ${wb.Lang.dict['general']['translated_lesson']} ${data.emoji}* \n _${data.event.translated}_ \n- ${data.subject} \n- ${roomVar} ${data.message ? `\n${data.message}` : ''}`;
 
             wb.Whatsapp.sendMessage(wb.config.classes.find(i => i['classID'] === classID)['whatsapp_groupID'], content);
         });

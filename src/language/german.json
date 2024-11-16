@@ -36,6 +36,7 @@
 		"currently_no_lesson": "Aktuell ist kein Unterricht! \n\nDu kannst auch andere Stunden abfragen. Beispiel: \n`${args0} ${args1} stunde:1`",
 		"teacher_no_lesson": "kein Unterricht",
 		"lesson_canceled": "Unterricht entfällt",
+		"lesson_exam": "Klausur",
 		"lesson_is_substituted": "Unterricht wird vertreten",
 		"subject_unknown": "Fach nicht bekannt",
 		"room_unknown:": "Raum nicht bekannt",
@@ -58,7 +59,8 @@
 		"FREE": "Frei",
 		"SUBSTITUTION": "Vertretung",
 		"ROOMSUBSTITUTION": "Raum-Verlegung",
-		"ADDITIONAL": "Zusätzlicher Unterricht"
+		"ADDITIONAL": "Zusätzlicher Unterricht",
+		"EXAM": "Klausur"
 	},
 	"general": {
 		"update": "UPDATE",

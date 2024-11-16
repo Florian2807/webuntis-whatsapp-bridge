@@ -36,6 +36,7 @@
 		"currently_no_lesson": "Currently, there is no lesson! \n\nYou can also query other lessons. Example: \n`${args0} ${args1} lesson:1`",
 		"teacher_no_lesson": "No lesson",
 		"lesson_canceled": "Lesson canceled",
+		"lesson_exam": "Exam",
 		"lesson_is_substituted": "Lesson is substituted",
 		"subject_unknown": "Subject unknown",
 		"room_unknown:": "Room unknown",
@@ -58,7 +59,8 @@
 		"FREE": "Free",
 		"SUBSTITUTION": "Substitution",
 		"ROOMSUBSTITUTION": "Room Change",
-		"ADDITIONAL": "Additional Lesson"
+		"ADDITIONAL": "Additional Lesson",
+		"EXAM": "Exam"
 	},
 	"general": {
 		"update": "UPDATE",

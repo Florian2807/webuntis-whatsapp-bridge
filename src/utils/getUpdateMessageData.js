@@ -39,9 +39,10 @@ function getRightEmoji(cellState) {
 		STANDARD: '🟢',
 		CANCEL: '🔴',
 		FREE: '🔴',
-		SUBSTITUTION: '🟠',
-		ROOMSUBSTITUTION: '🟠',
+		SUBSTITUTION: '🟣',
+		ROOMSUBSTITUTION: '🟣',
 		ADDITIONAL: '🟠',
+		EXAM: '🟠',
 	};
 	return list[cellState];
 }
