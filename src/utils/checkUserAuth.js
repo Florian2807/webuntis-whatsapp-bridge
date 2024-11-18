@@ -4,14 +4,11 @@ module.exports = async (checkingUser) => {
     const authorizedUsers = JSON.parse(process.env.whatsapp_admins);
     for (const c of wb.config.classes) {
         if (c.whatsapp_groupID.includes("@g.us")) {
-            const group = (await wb.Whatsapp.getChats()).find(c => c.id === c.whatsapp_groupID);
-            console.log(group.participants);
-            authorizedUsers.push(...group.participants.filter(i => i.id.server === 'c.us').map(participant => participant.id._serialized));
+            const groupMembers = (await wb.Whatsapp.getChats()).find(i => i.id._serialized === c.whatsapp_groupID).participants.map(p => p.id._serialized);
+            authorizedUsers.push(...groupMembers);
         } else {
             authorizedUsers.push(c.whatsapp_groupID);
         }
     }
-    console.log(authorizedUsers);
-    console.log(checkingUser);
     return authorizedUsers.includes(checkingUser);
 };
