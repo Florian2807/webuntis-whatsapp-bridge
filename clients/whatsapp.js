@@ -17,7 +17,7 @@ client.on('qr', qr => {
 });
 
 client.on('message', async msg => {
-	if (process.env.NODE_ENV === 'development' && !process.env.whatsapp_admins.includes(msg.from)) return;
+	if (process.env.NODE_ENV === 'development' && !process.env.whatsapp_admins.includes(msg.author)) return;
 	handleCommand(msg);
 	handleModule(msg);
 });
@@ -26,8 +26,7 @@ async function handleCommand(msg) {
 	const message = msg.body?.toLowerCase().split(' ')[0];
 
 	if (!message.startsWith('!')) return;
-
-	const isPermitted = await wb.Utils.checkUserAuth(msg.from);
+	const isPermitted = await wb.Utils.checkUserAuth(msg.author);
 	if (!isPermitted) return 
 
 	let command;
