@@ -27,6 +27,9 @@ async function handleCommand(msg) {
 
 	if (!message.startsWith('!')) return;
 
+	const isPermitted = await wb.Utils.checkUserAuth(msg.from);
+	if (!isPermitted) return 
+
 	let command;
 	Array.from(wb.Commands.values()).some(cmd => {
 		const triggers = cmd['triggers'];
