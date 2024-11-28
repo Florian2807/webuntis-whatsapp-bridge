@@ -5,7 +5,7 @@ module.exports = (updates = []) => {
 		const event = wb.Utils.translateCellstate(
 			update.cellState,
 			update.teacher.filter(t => t)
-		);
+		) ?? { cellstate: update.cellState, translated: update.cellState };
 		const element = {
 			weekday: weekdays[wb.Utils.parseUntisDate(update.date).getDay() - 1],
 			date: update.date,
@@ -43,5 +43,5 @@ function getRightEmoji(cellState) {
 		ROOMSUBSTITUTION: '🟠',
 		ADDITIONAL: '🟠',
 	};
-	return list[cellState];
+	return list[cellState] ?? '🟠';
 }
