@@ -58,7 +58,8 @@
 		"FREE": "Free",
 		"SUBSTITUTION": "Substitution",
 		"ROOMSUBSTITUTION": "Room Change",
-		"ADDITIONAL": "Additional Lesson"
+		"ADDITIONAL": "Additional Lesson",
+		"EXAM": "Exam"
 	},
 	"general": {
 		"update": "UPDATE",

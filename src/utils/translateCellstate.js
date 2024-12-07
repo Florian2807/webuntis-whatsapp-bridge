@@ -3,5 +3,5 @@ module.exports = (cellState, teacher) => {
 	if (teacher.map(i => i.id).includes(0)) {
 		return { cellstate: 'CANCEL', translated: xd['CANCEL'] };
 	}
-	return { cellstate: cellState, translated: xd[cellState] };
+	return { cellstate: cellState, translated: xd[cellState] ?? cellState };
 };
