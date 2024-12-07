@@ -11,7 +11,7 @@
 		"node-schedule": "^2.1.1",
 		"qrcode-terminal": "^0.12.0",
 		"webuntis": "^2.0.3",
-		"whatsapp-web.js": "github:pedroslopez/whatsapp-web.js#webpack-exodus"
+		"whatsapp-web.js": "github:pedroslopez/whatsapp-web.js"
 	},
 	"devDependencies": {
 		"globals": "^15.3.0",
