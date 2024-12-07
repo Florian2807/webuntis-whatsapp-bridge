@@ -13,11 +13,11 @@ module.exports = async ({ classID }) => {
     if (!timetable) return;
 
     const currentDate = new Date();
-    const firstDayOfWeek = new Date(currentDate.setDate(currentDate.getDate() - currentDate.getDay()));
+    const firstDayOfWeek = new Date(currentDate.setHours(0, 0, 0, 0) - (currentDate.getDay() === 0 ? 6 : currentDate.getDay() - 1) * 86400000);
     const lessonsPerDay = {};
 
     const existingChanges = wb.changedLessons[classID].filter(
-        lesson => wb.Utils.parseUntisDate(lesson.date) >= firstDayOfWeek / 1000
+        lesson => wb.Utils.parseUntisDate(lesson.date) / 1000 >= firstDayOfWeek / 1000
     );
     const newChanges = []
 
