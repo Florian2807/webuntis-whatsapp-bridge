@@ -26,8 +26,6 @@ async function handleCommand(msg) {
 	const message = msg.body?.toLowerCase().split(' ')[0];
 
 	if (!message.startsWith('!')) return;
-	const isPermitted = await wb.Utils.checkUserAuth(msg.author ?? msg.from);
-	if (!isPermitted) return;
 
 	let command;
 	Array.from(wb.Commands.values()).some(cmd => {
