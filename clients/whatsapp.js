@@ -66,7 +66,7 @@ async function handleModule(msg) {
 }
 
 async function checkPermission({ fromUser, command }) {
-	const allGroups = await (await wb.Whatsapp.getChats()).filter(chat => chat.isGroup);
+	const allGroups = await (await wb.Whatsapp.getChats()).filter(chat => chat.id.server === "g.us");
 	const acceptedGroups = wb.config.classes.filter(c => c.hasCommandPermission).map(c => c.whatsapp_groupID);
 	const allGroupParticipants = [];
 	allGroups
