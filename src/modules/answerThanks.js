@@ -7,7 +7,7 @@ module.exports = {
 
 	callback: async ({ msg }) => {
 		if (msg.body?.toLowerCase().includes(wb.Lang.handle(__filename, 'trigger'))) {
-			await msg.reply(wb.Lang.handle(__filename, 'reply'));
+			await global.safeReply(msg, wb.Lang.handle(__filename, 'reply'));
 		}
 	},
 };

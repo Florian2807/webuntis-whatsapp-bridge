@@ -46,7 +46,7 @@ module.exports = {
 				return wb.Lang.handle(__filename, 'current_config', { output });
 			}
 			default: {
-				return msg.reply(wb.Lang.handle(__filename, 'wrong_usage'));
+				return wb.Lang.handle(__filename, 'wrong_usage');
 			}
 		}
 	},

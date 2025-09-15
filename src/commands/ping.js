@@ -4,6 +4,6 @@ module.exports = {
 	onlyPermittedUser: false,
 	needTeacherAccess: false,
 	callback: ({ msg }) => {
-		return msg.reply(wb.Lang.handle(__filename, 'pong_message'));
+		return wb.Lang.handle(__filename, 'pong_message');
 	},
 };
