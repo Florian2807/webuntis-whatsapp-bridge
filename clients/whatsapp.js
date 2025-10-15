@@ -104,7 +104,11 @@ async function handleCommand(msg) {
 		}
 
 		const args = msg.body?.split(' ');
-		if (!(await checkPermission({ fromUser: msg.from, command }))) {
+		const checkPermOutput = await checkPermission({ fromUser: msg.from, command });
+		if (checkPermOutput === null) {
+			return;
+		}
+		if (!checkPermOutput) {
 			const noPermMsg =
 				wb.Lang && wb.Lang.handle ? wb.Lang.handle(__filename, 'no_command_permission') : 'Keine Berechtigung für diesen Befehl';
 			return await safeReply(msg, noPermMsg);
@@ -171,6 +175,9 @@ async function checkPermission({ fromUser, command }) {
 			});
 
 		const hasCommandPermission = allGroupParticipants.includes(fromUser);
+		if (!hasCommandPermission) {
+			return null;
+		}
 		return !(command.onlyPermittedUser && !hasCommandPermission); // true => has permission
 	} catch (error) {
 		console.error('Fehler bei der Berechtigungsprüfung:', error);
