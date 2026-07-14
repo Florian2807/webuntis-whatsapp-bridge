@@ -97,7 +97,7 @@ For my personal use I use my private home phone number with a WhatsApp account.
 
 ---
 
-```js
+```json
 {
     "timetable": [
         {"lesson": 1, "start": "07:50", "end": "08:35"},
