@@ -4,10 +4,11 @@
 	},
 	"whatsapp.js": {
 		"unknown_command": "This command does not exist. \nYou can find all commands in my WhatsApp description",
-		"no_command_permission": "Unfortunately, you do not have permission to use this command. \nContact the administrator :)"
+		"no_command_permission": "Unfortunately, you do not have permission to use this command. \nContact the administrator :)",
+		"no_teacher_access": "This command requires a WebUntis teacher account."
 	},
 	"config.js": {
-		"no_class_provided": "You must provide the class name \n > !config <ClassName> \n\nIf you have any questions, message me privately (number is in the description)",
+		"no_class_provided": "You must provide the class name \n > !config set <ClassName> \n\nIf you have any questions, message me privately (number is in the description)",
 		"class_not_found": "I couldn't find a class with that name! \nNote: Make sure to include the leading zero in the name (e.g., 09b)",
 		"successful_config_change": "Done! Configurations: ${outputData}",
 		"no_config_found": "No configuration found for this chat",

@@ -39,7 +39,7 @@ Install [Node.js](https://nodejs.org/), if you don't have it already.
 **Clone** the repository:
 
 ```bash
-git clone https://github.com/Florian2807/webuntis-whatsapp-bridge | cd webuntis-whatsapp-bridge
+git clone https://github.com/Florian2807/webuntis-whatsapp-bridge && cd webuntis-whatsapp-bridge
 ```
 
 **Edit** the config.json:
@@ -114,7 +114,8 @@ For my personal use I use my private home phone number with a WhatsApp account.
         {
             "class_name": "Q1",
             "classID": "872",
-            "whatsapp_groupID": "123456789123456789@g.us"
+	            "whatsapp_groupID": "123456789123456789@g.us",
+	            "hasCommandPermission": true
         }
     ]
 }
@@ -151,7 +152,7 @@ untis_username="user_login here"
 untis_password="your password here"
 untis_teacher_access=false
 
-whatsapp_admins=['491234567890@c.us']
+whatsapp_admins=["491234567890@c.us"]
 
 language_model="english.json"
 

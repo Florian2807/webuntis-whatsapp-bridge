@@ -12,12 +12,24 @@ wb.api = require('./src/api.js');
 
 // Dann WebUntis verbinden
 wb.Webuntis = require('./clients/webuntis.js');
-wb.Webuntis.login().then(() => console.log('WebUntis connected!'));
 
 // Zuletzt WhatsApp verbinden (nachdem alle Dependencies geladen sind)
 wb.Whatsapp = require('./clients/whatsapp.js');
-wb.Whatsapp.initialize()
-	.then(() => console.log('WhatsApp connected!'))
-	.catch(error => {
+
+start();
+
+async function start() {
+	try {
+		await wb.Webuntis.login();
+		console.log('WebUntis connected!');
+	} catch (error) {
+		console.error('WebUntis connection failed:', error);
+	}
+
+	try {
+		await wb.Whatsapp.initialize();
+		console.log('WhatsApp connected!');
+	} catch (error) {
 		console.error('WhatsApp connection failed:', error);
-	});
+	}
+}

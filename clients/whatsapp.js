@@ -13,6 +13,8 @@ if (process.env.chrome_path) {
 
 const client = new Client(conf);
 
+const whatsappAdmins = parseWhatsappAdmins();
+
 // QR Code anzeigen
 client.on('qr', qr => {
 	console.log('QR Code empfangen, bitte mit WhatsApp scannen:');
@@ -38,7 +40,7 @@ client.on('disconnected', reason => {
 
 // Nachrichten verarbeiten
 client.on('message', async msg => {
-	if (process.env.NODE_ENV === 'development' && !process.env.whatsapp_admins.includes(msg.author ?? msg.from)) return;
+	if (process.env.NODE_ENV === 'development' && !whatsappAdmins.includes(getSenderId(msg))) return;
 
 	try {
 		await handleCommand(msg);
@@ -79,9 +81,9 @@ global.safeReply = safeReply;
 
 async function handleCommand(msg) {
 	try {
-		const message = msg.body?.toLowerCase().split(' ')[0];
+		const message = msg.body?.trim().toLowerCase().split(/\s+/)[0];
 
-		if (!message.startsWith('!')) return;
+		if (!message?.startsWith('!')) return;
 
 		// Überprüfen ob wb.Commands verfügbar ist
 		if (!wb.Commands) {
@@ -103,12 +105,17 @@ async function handleCommand(msg) {
 			return await safeReply(msg, unknownMsg);
 		}
 
-		const args = msg.body?.split(' ');
-		const checkPermOutput = await checkPermission({ fromUser: msg.from, command });
-		if (checkPermOutput === null) {
-			return;
+		const args = msg.body?.trim().split(/\s+/);
+
+		if (command.needTeacherAccess && process.env.untis_teacher_access !== 'true') {
+			const noTeacherAccessMsg =
+				wb.Lang && wb.Lang.handle
+					? wb.Lang.handle(__filename, 'no_teacher_access')
+					: 'Dieser Befehl erfordert einen WebUntis-Lehrerzugang';
+			return await safeReply(msg, noTeacherAccessMsg);
 		}
-		if (!checkPermOutput) {
+
+		if (command.onlyPermittedUser && !(await checkPermission({ msg }))) {
 			const noPermMsg =
 				wb.Lang && wb.Lang.handle ? wb.Lang.handle(__filename, 'no_command_permission') : 'Keine Berechtigung für diesen Befehl';
 			return await safeReply(msg, noPermMsg);
@@ -157,15 +164,28 @@ async function handleModule(msg) {
 	}
 }
 
-async function checkPermission({ fromUser, command }) {
+async function checkPermission({ msg }) {
 	try {
 		if (!wb.config || !wb.config.classes) {
 			console.error('wb.config oder wb.config.classes ist nicht verfügbar');
 			return false;
 		}
 
-		const allGroups = await (await wb.Whatsapp.getChats()).filter(chat => chat.id.server === 'g.us');
 		const acceptedGroups = wb.config.classes.filter(c => c.hasCommandPermission).map(c => c.whatsapp_groupID);
+		if (!acceptedGroups.length) {
+			return false;
+		}
+
+		if (acceptedGroups.includes(msg.from)) {
+			return true;
+		}
+
+		const senderId = getSenderId(msg);
+		if (!senderId) {
+			return false;
+		}
+
+		const allGroups = await (await wb.Whatsapp.getChats()).filter(chat => chat.id.server === 'g.us');
 		const allGroupParticipants = [];
 
 		allGroups
@@ -174,14 +194,33 @@ async function checkPermission({ fromUser, command }) {
 				allGroupParticipants.push(...group.participants.filter(i => i.id.server === 'c.us').map(participant => participant.id._serialized));
 			});
 
-		const hasCommandPermission = allGroupParticipants.includes(fromUser);
-		if (!hasCommandPermission) {
-			return null;
-		}
-		return !(command.onlyPermittedUser && !hasCommandPermission); // true => has permission
+		return allGroupParticipants.includes(senderId);
 	} catch (error) {
 		console.error('Fehler bei der Berechtigungsprüfung:', error);
 		return false;
+	}
+}
+
+function getSenderId(msg) {
+	return msg.author ?? msg.from;
+}
+
+function parseWhatsappAdmins() {
+	const rawAdmins = process.env.whatsapp_admins?.trim();
+	if (!rawAdmins) {
+		return [];
+	}
+
+	try {
+		const parsedAdmins = JSON.parse(rawAdmins);
+		return Array.isArray(parsedAdmins) ? parsedAdmins : [String(parsedAdmins)];
+	} catch {
+		return rawAdmins
+			.replace(/^\[/, '')
+			.replace(/\]$/, '')
+			.split(',')
+			.map(admin => admin.trim().replace(/^['\"]|['\"]$/g, ''))
+			.filter(Boolean);
 	}
 }
 

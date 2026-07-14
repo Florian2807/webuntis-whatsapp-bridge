@@ -1,13 +1,15 @@
 const got = require('got');
 const fs = require('fs');
 
+const whatsappAdmins = parseWhatsappAdmins();
+
 module.exports = {
 	commandName: 'eval',
 	triggers: ['eval'],
 	needTeacherAccess: false,
 	onlyPermittedUser: true,
 	callback: async ({ msg, args }) => {
-		if (!process.env.whatsapp_admins.includes(msg.from)) return;
+		if (!whatsappAdmins.includes(msg.author ?? msg.from)) return;
 		try {
 			args.shift();
 			const message = args.join(' ');
@@ -22,3 +24,22 @@ module.exports = {
 		}
 	},
 };
+
+function parseWhatsappAdmins() {
+	const rawAdmins = process.env.whatsapp_admins?.trim();
+	if (!rawAdmins) {
+		return [];
+	}
+
+	try {
+		const parsedAdmins = JSON.parse(rawAdmins);
+		return Array.isArray(parsedAdmins) ? parsedAdmins : [String(parsedAdmins)];
+	} catch {
+		return rawAdmins
+			.replace(/^\[/, '')
+			.replace(/\]$/, '')
+			.split(',')
+			.map(admin => admin.trim().replace(/^['\"]|['\"]$/g, ''))
+			.filter(Boolean);
+	}
+}
